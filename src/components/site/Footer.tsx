@@ -101,14 +101,6 @@ export function Footer() {
               </a>
             </li>
           </ul>
-          <div className="mt-4 rounded-xl overflow-hidden border border-gold/30">
-            <iframe
-              src={siteConfig.mapEmbed}
-              className="w-full h-32"
-              loading="lazy"
-              title="Store location"
-            />
-          </div>
         </div>
       </div>
       <div className="relative border-t border-gold/20">

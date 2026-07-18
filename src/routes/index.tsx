@@ -76,15 +76,6 @@ function Hero() {
         </div>
       ))}
 
-      {/* Arrows */}
-      <button onClick={() => go(index - 1)} aria-label="Previous"
-        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full glass grid place-items-center text-deep-red hover:scale-110 transition-elegant z-10">
-        <ChevronLeft className="w-5 h-5" />
-      </button>
-      <button onClick={() => go(index + 1)} aria-label="Next"
-        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full glass grid place-items-center text-deep-red hover:scale-110 transition-elegant z-10">
-        <ChevronRight className="w-5 h-5" />
-      </button>
 
       {/* Dots */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
@@ -207,35 +198,59 @@ function WhyChoose() {
 function Testimonials() {
   const [i, setI] = useState(0);
   useEffect(() => {
-    const t = setInterval(() => setI((v) => (v + 1) % testimonials.length), 5000);
+    const t = setInterval(() => setI((v) => (v + 1) % testimonials.length), 6000);
     return () => clearInterval(t);
   }, []);
+  const prev = () => setI((v) => (v - 1 + testimonials.length) % testimonials.length);
+  const next = () => setI((v) => (v + 1) % testimonials.length);
+
+  const current = testimonials[i];
+
   return (
     <section className="py-16 sm:py-24 px-4">
       <div className="max-w-7xl mx-auto">
-        <SectionHeading eyebrow="Kind Words" title="Happy Customers" />
-        <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((t, idx) => (
-            <div key={t.id}
-              className={`reveal rounded-3xl bg-card border border-gold/25 p-6 sm:p-8 shadow-sm transition-elegant ${idx === i ? "ring-2 ring-gold/60 -translate-y-1 shadow-elegant" : ""}`}>
-              <div className="flex items-center gap-4">
-                <img src={t.image} alt={t.name} loading="lazy"
-                  className="w-14 h-14 rounded-full object-cover border-2 border-gold" />
-                <div>
-                  <div className="font-bold text-deep-red">{t.name}</div>
-                  <div className="text-xs text-muted-foreground">{t.role}</div>
+        <SectionHeading eyebrow="Kind Words" title="Happy Customers" subtitle="See what our valued patrons have to say about their experience with us." />
+        <div className="max-w-3xl mx-auto relative px-2 sm:px-12">
+          <div className="rounded-3xl bg-card border-2 border-gold/30 p-8 sm:p-12 shadow-elegant relative overflow-hidden min-h-[260px] flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                <div className="flex items-center gap-4">
+                  <img src={current.image} alt={current.name}
+                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-gold shadow-md" />
+                  <div>
+                    <div className="font-bold text-lg sm:text-xl text-deep-red">{current.name}</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground">{current.role}</div>
+                  </div>
+                </div>
+                <div className="flex gap-1 text-gold">
+                  {Array.from({ length: current.rating }).map((_, k) => (
+                    <Star key={k} className="w-5 h-5 fill-current" />
+                  ))}
                 </div>
               </div>
-              <div className="flex gap-0.5 mt-4 text-gold">
-                {Array.from({ length: t.rating }).map((_, k) => (
-                  <Star key={k} className="w-4 h-4 fill-current" />
-                ))}
-              </div>
-              <p className="mt-4 text-sm text-muted-foreground leading-relaxed italic">
-                &ldquo;{t.review}&rdquo;
+              <p className="mt-6 sm:mt-8 text-base sm:text-xl text-foreground leading-relaxed italic">
+                &ldquo;{current.review}&rdquo;
               </p>
             </div>
-          ))}
+            <div className="mt-8 flex items-center justify-between pt-4 border-t border-gold/15">
+              <div className="flex gap-2">
+                {testimonials.map((_, idx) => (
+                  <button key={idx} onClick={() => setI(idx)} aria-label={`Testimonial ${idx + 1}`}
+                    className={`h-2.5 rounded-full transition-all duration-500 ${idx === i ? "w-8 bg-gold" : "w-2.5 bg-muted-foreground/30"}`} />
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <button onClick={prev} aria-label="Previous testimonial"
+                  className="w-10 h-10 rounded-full border border-gold/40 grid place-items-center text-deep-red hover:bg-gold hover:text-white transition-elegant">
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button onClick={next} aria-label="Next testimonial"
+                  className="w-10 h-10 rounded-full border border-gold/40 grid place-items-center text-deep-red hover:bg-gold hover:text-white transition-elegant">
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
