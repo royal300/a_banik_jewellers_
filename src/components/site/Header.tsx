@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X, Phone, MessageCircle, Gem, TrendingUp, Sparkles } from "lucide-react";
+import { Menu, X, Phone, MessageCircle, Gem } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
 const nav = [
@@ -13,13 +13,6 @@ const nav = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [rates, setRates] = useState<any>({
-    gold22K: "₹ 7,285 / g",
-    gold24K: "₹ 7,945 / g",
-    silver: "₹ 96 / g",
-    updated: "Today",
-    announcement: "",
-  });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -28,55 +21,8 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    async function loadRates() {
-      try {
-        const res = await fetch("/api/rates");
-        const data = await res.json();
-        if (data) setRates(data);
-      } catch (err) {
-        console.error("Rates fetch error:", err);
-      }
-    }
-    loadRates();
-  }, []);
-
   return (
     <>
-      {/* Top Ticker Bar showing Live Metal Rates */}
-      <div className="bg-[oklch(0.22_0.04_25)] text-gold border-b border-gold/30 px-3 py-2 text-xs font-semibold shadow-inner z-50 relative">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-          <div className="flex items-center gap-2 tracking-wide">
-            <span className="flex items-center gap-1.5 bg-deep-red text-gold px-2.5 py-0.5 rounded-full font-extrabold text-[10px] uppercase shadow-sm">
-              <TrendingUp className="w-3 h-3 animate-pulse" /> Live Rates
-            </span>
-            <span>
-              22K Gold: <strong className="text-ivory font-extrabold">{rates.gold22K}</strong>
-            </span>
-            <span className="text-gold/40">|</span>
-            <span>
-              24K Gold: <strong className="text-ivory font-extrabold">{rates.gold24K}</strong>
-            </span>
-            <span className="text-gold/40">|</span>
-            <span>
-              Silver: <strong className="text-ivory font-extrabold">{rates.silver}</strong>
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2 text-[11px] text-ivory/80">
-            {rates.announcement ? (
-              <span className="inline-flex items-center gap-1 text-gold">
-                <Sparkles className="w-3 h-3 shrink-0" /> {rates.announcement}
-              </span>
-            ) : (
-              <span>
-                Updated: <span className="text-gold font-bold">{rates.updated}</span> · BIS Hallmarked Purity
-              </span>
-            )}
-          </div>
-        </div>
-      </div>
-
       <header
         className={`sticky top-0 z-40 transition-elegant border-b ${
           scrolled

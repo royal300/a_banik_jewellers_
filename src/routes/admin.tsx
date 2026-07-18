@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createFileRoute, Outlet, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Outlet, Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard,
   Grid,
@@ -21,20 +21,27 @@ function AdminLayout() {
   const [authorized, setAuthorized] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useRouterState({ select: (s) => s.location });
+  const isLoginPage = location.pathname === "/admin/login";
 
   useEffect(() => {
+    if (isLoginPage) return;
     const token = localStorage.getItem("abj_admin");
     if (!token || token !== "abj_admin_token_active") {
       navigate({ to: "/admin/login" });
     } else {
       setAuthorized(true);
     }
-  }, [navigate]);
+  }, [navigate, isLoginPage]);
 
   const handleLogout = () => {
     localStorage.removeItem("abj_admin");
     navigate({ to: "/admin/login" });
   };
+
+  if (isLoginPage) {
+    return <Outlet />;
+  }
 
   if (!authorized) {
     return (
