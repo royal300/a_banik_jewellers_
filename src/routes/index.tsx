@@ -39,7 +39,7 @@ function Hero() {
   const go = (n: number) => setIndex((n + slides.length) % slides.length);
 
   return (
-    <section className="relative w-full h-[75vh] sm:h-[85vh] lg:h-[90vh] max-h-[900px] overflow-hidden">
+    <section className="relative w-full h-[50vh] min-h-[420px] sm:min-h-[550px] sm:h-[75vh] lg:h-[85vh] max-h-[900px] overflow-hidden">
       {slides.map((s, i) => (
         <div
           key={i}
@@ -51,16 +51,16 @@ function Hero() {
           <div className="absolute inset-0 flex items-center">
             <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full">
               <div className={`max-w-xl text-white ${i === index ? "reveal" : ""}`}>
-                <div className="text-gold text-xs sm:text-sm font-bold tracking-[0.35em] uppercase mb-4">
+                <div className="text-gold text-xs sm:text-sm font-bold tracking-[0.35em] uppercase mb-2 sm:mb-4">
                   {s.eyebrow}
                 </div>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] drop-shadow-lg">
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] drop-shadow-lg">
                   {s.title}
                 </h1>
-                <p className="mt-4 text-base sm:text-lg text-white/85 max-w-md">
+                <p className="mt-2 sm:mt-4 text-sm sm:text-lg text-white/85 max-w-md">
                   {s.subtitle}
                 </p>
-                <div className="mt-8 flex flex-wrap gap-3">
+                <div className="mt-5 sm:mt-8 flex flex-wrap gap-3">
                   <Link to="/products"
                     className="px-6 py-3 rounded-full gradient-gold text-deep-red font-bold text-sm tracking-wide shadow-gold hover:scale-105 transition-elegant">
                     SHOP NOW
@@ -129,14 +129,14 @@ function BannerDuo({ items }: { items: { image: string; eyebrow: string; title: 
     <section className="py-6 sm:py-10 px-4">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
         {items.map((b, i) => (
-          <Link key={i} to={b.to} className="reveal group relative rounded-3xl overflow-hidden shadow-elegant aspect-[3/4] sm:aspect-[4/5] block">
+          <Link key={i} to={b.to} className="reveal group relative rounded-3xl overflow-hidden shadow-elegant h-[230px] sm:h-[280px] md:h-[310px] block w-full">
             <img src={b.image} alt={b.title} loading="lazy"
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-[transform] duration-[900ms]" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-            <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
-              <div className="text-gold text-xs font-bold tracking-[0.35em] uppercase mb-2">{b.eyebrow}</div>
-              <h3 className="text-3xl sm:text-4xl font-bold">{b.title}</h3>
-              <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold group-hover:gap-4 transition-all">
+            <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end text-white">
+              <div className="text-gold text-xs font-bold tracking-[0.35em] uppercase mb-1 sm:mb-2">{b.eyebrow}</div>
+              <h3 className="text-2xl sm:text-3xl font-bold">{b.title}</h3>
+              <div className="mt-3 sm:mt-4 inline-flex items-center gap-2 text-xs sm:text-sm font-semibold group-hover:gap-4 transition-all">
                 {b.cta}
                 <span className="h-px w-8 bg-gold group-hover:w-14 transition-all" />
               </div>
