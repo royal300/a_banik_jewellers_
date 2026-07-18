@@ -14,13 +14,13 @@ export function Footer() {
       />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
         <div>
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-10 h-10 rounded-full gradient-gold grid place-items-center">
-              <Gem className="w-5 h-5 text-deep-red" />
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full gradient-gold grid place-items-center shadow-gold">
+              <Gem className="w-6 h-6 sm:w-7 sm:h-7 text-deep-red" />
             </div>
             <div>
-              <div className="font-bold tracking-wider">A BANIK</div>
-              <div className="text-xs tracking-[0.25em] text-gold">JEWELLERS</div>
+              <div className="font-extrabold tracking-wider text-xl sm:text-3xl text-ivory">A BANIK</div>
+              <div className="text-xs sm:text-sm tracking-[0.28em] text-gold font-bold">JEWELLERS</div>
             </div>
           </div>
           <p className="text-sm text-ivory/70 leading-relaxed">

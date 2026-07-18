@@ -33,15 +33,15 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20 gap-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 shrink-0 group">
-            <div className="w-10 h-10 rounded-full gradient-red grid place-items-center shadow-gold group-hover:scale-105 transition-elegant">
-              <Gem className="w-5 h-5 text-gold" />
+          <Link to="/" className="flex items-center gap-3 shrink-0 group">
+            <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full gradient-red grid place-items-center shadow-gold group-hover:scale-105 transition-elegant">
+              <Gem className="w-6 h-6 text-gold" />
             </div>
             <div className="leading-tight">
-              <div className="font-bold tracking-wider text-deep-red text-sm sm:text-base">
+              <div className="font-extrabold tracking-wider text-deep-red text-lg sm:text-2xl">
                 A BANIK
               </div>
-              <div className="text-[10px] sm:text-xs tracking-[0.25em] text-gold font-semibold">
+              <div className="text-xs sm:text-sm tracking-[0.28em] text-gold font-bold">
                 JEWELLERS
               </div>
             </div>
