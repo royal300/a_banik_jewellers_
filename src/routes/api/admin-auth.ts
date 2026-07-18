@@ -9,7 +9,10 @@ export const Route = createFileRoute("/api/admin-auth")({
         const body = await request.json();
         const { username, password } = body;
 
-        if (username === "admin" && password === "admin123") {
+        const cleanUser = String(username || "").trim().toLowerCase();
+        const cleanPass = String(password || "").trim();
+
+        if (cleanUser === "admin" && cleanPass === "admin123") {
           return new Response(
             JSON.stringify({ success: true, token: "abj_admin_token_active" }),
             { headers: { "Content-Type": "application/json" } }

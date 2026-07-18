@@ -22,7 +22,10 @@ function AdminLogin() {
       const res = await fetch("/api/admin-auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({
+          username: username.trim().toLowerCase(),
+          password: password.trim(),
+        }),
       });
       const data = await res.json();
       if (data.success && data.token) {
