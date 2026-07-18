@@ -39,7 +39,7 @@ function Hero() {
   const go = (n: number) => setIndex((n + slides.length) % slides.length);
 
   return (
-    <section className="relative w-full h-[50vh] min-h-[420px] sm:min-h-[550px] sm:h-[75vh] lg:h-[85vh] max-h-[900px] overflow-hidden">
+    <section className="relative w-full h-[64vh] min-h-[480px] sm:min-h-[550px] sm:h-[75vh] lg:h-[85vh] max-h-[900px] overflow-hidden">
       {slides.map((s, i) => (
         <div
           key={i}
@@ -129,7 +129,7 @@ function BannerDuo({ items }: { items: { image: string; eyebrow: string; title: 
     <section className="py-6 sm:py-10 px-4">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
         {items.map((b, i) => (
-          <Link key={i} to={b.to} className="reveal group relative rounded-3xl overflow-hidden shadow-elegant h-[230px] sm:h-[280px] md:h-[310px] block w-full">
+          <Link key={i} to={b.to} className="reveal group relative rounded-3xl overflow-hidden shadow-elegant h-[360px] sm:h-[440px] md:h-[480px] block w-full">
             <img src={b.image} alt={b.title} loading="lazy"
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-[transform] duration-[900ms]" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
