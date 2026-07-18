@@ -11,12 +11,24 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as CollectionsRouteImport } from './routes/collections'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as ProductsRouteImport } from './routes/products'
+import { Route as JewelleriesRouteImport } from './routes/jewelleries'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as CollectionsSlugRouteImport } from './routes/collections.$slug'
-import { Route as ProductsIdRouteImport } from './routes/products.$id'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminCategoriesRouteImport } from './routes/admin/categories'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AdminMediaManagerRouteImport } from './routes/admin/media-manager'
+import { Route as AdminProductsRouteImport } from './routes/admin/products'
+import { Route as AdminRatesRouteImport } from './routes/admin/rates'
+import { Route as ApiAdminAuthRouteImport } from './routes/api/admin-auth'
+import { Route as ApiCategoriesRouteImport } from './routes/api/categories'
+import { Route as ApiMediaRouteImport } from './routes/api/media'
+import { Route as ApiProductsRouteImport } from './routes/api/products'
+import { Route as ApiRatesRouteImport } from './routes/api/rates'
+import { Route as JewelleriesIndexRouteImport } from './routes/jewelleries.index'
+import { Route as JewelleriesSlugRouteImport } from './routes/jewelleries.$slug'
+import { Route as ProductIdRouteImport } from './routes/product.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,9 +40,9 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CollectionsRoute = CollectionsRouteImport.update({
-  id: '/collections',
-  path: '/collections',
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -38,9 +50,9 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProductsRoute = ProductsRouteImport.update({
-  id: '/products',
-  path: '/products',
+const JewelleriesRoute = JewelleriesRouteImport.update({
+  id: '/jewelleries',
+  path: '/jewelleries',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -48,88 +60,222 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CollectionsSlugRoute = CollectionsSlugRouteImport.update({
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMediaManagerRoute = AdminMediaManagerRouteImport.update({
+  id: '/media-manager',
+  path: '/media-manager',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProductsRoute = AdminProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminRatesRoute = AdminRatesRouteImport.update({
+  id: '/rates',
+  path: '/rates',
+  getParentRoute: () => AdminRoute,
+} as any)
+const ApiAdminAuthRoute = ApiAdminAuthRouteImport.update({
+  id: '/api/admin-auth',
+  path: '/api/admin-auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCategoriesRoute = ApiCategoriesRouteImport.update({
+  id: '/api/categories',
+  path: '/api/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMediaRoute = ApiMediaRouteImport.update({
+  id: '/api/media',
+  path: '/api/media',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiProductsRoute = ApiProductsRouteImport.update({
+  id: '/api/products',
+  path: '/api/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRatesRoute = ApiRatesRouteImport.update({
+  id: '/api/rates',
+  path: '/api/rates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JewelleriesIndexRoute = JewelleriesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => JewelleriesRoute,
+} as any)
+const JewelleriesSlugRoute = JewelleriesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
-  getParentRoute: () => CollectionsRoute,
+  getParentRoute: () => JewelleriesRoute,
 } as any)
-const ProductsIdRoute = ProductsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => ProductsRoute,
+const ProductIdRoute = ProductIdRouteImport.update({
+  id: '/product/$id',
+  path: '/product/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/collections': typeof CollectionsRouteWithChildren
+  '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
-  '/products': typeof ProductsRouteWithChildren
+  '/jewelleries': typeof JewelleriesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/collections/$slug': typeof CollectionsSlugRoute
-  '/products/$id': typeof ProductsIdRoute
+  '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/media-manager': typeof AdminMediaManagerRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/rates': typeof AdminRatesRoute
+  '/api/admin-auth': typeof ApiAdminAuthRoute
+  '/api/categories': typeof ApiCategoriesRoute
+  '/api/media': typeof ApiMediaRoute
+  '/api/products': typeof ApiProductsRoute
+  '/api/rates': typeof ApiRatesRoute
+  '/jewelleries/$slug': typeof JewelleriesSlugRoute
+  '/product/$id': typeof ProductIdRoute
+  '/admin/': typeof AdminIndexRoute
+  '/jewelleries/': typeof JewelleriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/collections': typeof CollectionsRouteWithChildren
   '/contact': typeof ContactRoute
-  '/products': typeof ProductsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/collections/$slug': typeof CollectionsSlugRoute
-  '/products/$id': typeof ProductsIdRoute
+  '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/media-manager': typeof AdminMediaManagerRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/rates': typeof AdminRatesRoute
+  '/api/admin-auth': typeof ApiAdminAuthRoute
+  '/api/categories': typeof ApiCategoriesRoute
+  '/api/media': typeof ApiMediaRoute
+  '/api/products': typeof ApiProductsRoute
+  '/api/rates': typeof ApiRatesRoute
+  '/jewelleries/$slug': typeof JewelleriesSlugRoute
+  '/product/$id': typeof ProductIdRoute
+  '/admin': typeof AdminIndexRoute
+  '/jewelleries': typeof JewelleriesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/collections': typeof CollectionsRouteWithChildren
+  '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
-  '/products': typeof ProductsRouteWithChildren
+  '/jewelleries': typeof JewelleriesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/collections/$slug': typeof CollectionsSlugRoute
-  '/products/$id': typeof ProductsIdRoute
+  '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/media-manager': typeof AdminMediaManagerRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/rates': typeof AdminRatesRoute
+  '/api/admin-auth': typeof ApiAdminAuthRoute
+  '/api/categories': typeof ApiCategoriesRoute
+  '/api/media': typeof ApiMediaRoute
+  '/api/products': typeof ApiProductsRoute
+  '/api/rates': typeof ApiRatesRoute
+  '/jewelleries/$slug': typeof JewelleriesSlugRoute
+  '/product/$id': typeof ProductIdRoute
+  '/admin/': typeof AdminIndexRoute
+  '/jewelleries/': typeof JewelleriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
-    | '/collections'
+    | '/admin'
     | '/contact'
-    | '/products'
+    | '/jewelleries'
     | '/sitemap.xml'
-    | '/collections/$slug'
-    | '/products/$id'
+    | '/admin/categories'
+    | '/admin/login'
+    | '/admin/media-manager'
+    | '/admin/products'
+    | '/admin/rates'
+    | '/api/admin-auth'
+    | '/api/categories'
+    | '/api/media'
+    | '/api/products'
+    | '/api/rates'
+    | '/jewelleries/$slug'
+    | '/product/$id'
+    | '/admin/'
+    | '/jewelleries/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/collections'
     | '/contact'
-    | '/products'
     | '/sitemap.xml'
-    | '/collections/$slug'
-    | '/products/$id'
+    | '/admin/categories'
+    | '/admin/login'
+    | '/admin/media-manager'
+    | '/admin/products'
+    | '/admin/rates'
+    | '/api/admin-auth'
+    | '/api/categories'
+    | '/api/media'
+    | '/api/products'
+    | '/api/rates'
+    | '/jewelleries/$slug'
+    | '/product/$id'
+    | '/admin'
+    | '/jewelleries'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/collections'
+    | '/admin'
     | '/contact'
-    | '/products'
+    | '/jewelleries'
     | '/sitemap.xml'
-    | '/collections/$slug'
-    | '/products/$id'
+    | '/admin/categories'
+    | '/admin/login'
+    | '/admin/media-manager'
+    | '/admin/products'
+    | '/admin/rates'
+    | '/api/admin-auth'
+    | '/api/categories'
+    | '/api/media'
+    | '/api/products'
+    | '/api/rates'
+    | '/jewelleries/$slug'
+    | '/product/$id'
+    | '/admin/'
+    | '/jewelleries/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  CollectionsRoute: typeof CollectionsRouteWithChildren
+  AdminRoute: typeof AdminRouteWithChildren
   ContactRoute: typeof ContactRoute
-  ProductsRoute: typeof ProductsRouteWithChildren
+  JewelleriesRoute: typeof JewelleriesRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ApiAdminAuthRoute: typeof ApiAdminAuthRoute
+  ApiCategoriesRoute: typeof ApiCategoriesRoute
+  ApiMediaRoute: typeof ApiMediaRoute
+  ApiProductsRoute: typeof ApiProductsRoute
+  ApiRatesRoute: typeof ApiRatesRoute
+  ProductIdRoute: typeof ProductIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -148,11 +294,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/collections': {
-      id: '/collections'
-      path: '/collections'
-      fullPath: '/collections'
-      preLoaderRoute: typeof CollectionsRouteImport
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -162,11 +308,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/products': {
-      id: '/products'
-      path: '/products'
-      fullPath: '/products'
-      preLoaderRoute: typeof ProductsRouteImport
+    '/jewelleries': {
+      id: '/jewelleries'
+      path: '/jewelleries'
+      fullPath: '/jewelleries'
+      preLoaderRoute: typeof JewelleriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -176,54 +322,154 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/collections/$slug': {
-      id: '/collections/$slug'
-      path: '/$slug'
-      fullPath: '/collections/$slug'
-      preLoaderRoute: typeof CollectionsSlugRouteImport
-      parentRoute: typeof CollectionsRoute
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/products/$id': {
-      id: '/products/$id'
-      path: '/$id'
-      fullPath: '/products/$id'
-      preLoaderRoute: typeof ProductsIdRouteImport
-      parentRoute: typeof ProductsRoute
+    '/admin/categories': {
+      id: '/admin/categories'
+      path: '/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AdminCategoriesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/media-manager': {
+      id: '/admin/media-manager'
+      path: '/media-manager'
+      fullPath: '/admin/media-manager'
+      preLoaderRoute: typeof AdminMediaManagerRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/products': {
+      id: '/admin/products'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminProductsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/rates': {
+      id: '/admin/rates'
+      path: '/rates'
+      fullPath: '/admin/rates'
+      preLoaderRoute: typeof AdminRatesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/api/admin-auth': {
+      id: '/api/admin-auth'
+      path: '/api/admin-auth'
+      fullPath: '/api/admin-auth'
+      preLoaderRoute: typeof ApiAdminAuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/categories': {
+      id: '/api/categories'
+      path: '/api/categories'
+      fullPath: '/api/categories'
+      preLoaderRoute: typeof ApiCategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/media': {
+      id: '/api/media'
+      path: '/api/media'
+      fullPath: '/api/media'
+      preLoaderRoute: typeof ApiMediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/products': {
+      id: '/api/products'
+      path: '/api/products'
+      fullPath: '/api/products'
+      preLoaderRoute: typeof ApiProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rates': {
+      id: '/api/rates'
+      path: '/api/rates'
+      fullPath: '/api/rates'
+      preLoaderRoute: typeof ApiRatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jewelleries/': {
+      id: '/jewelleries/'
+      path: '/'
+      fullPath: '/jewelleries/'
+      preLoaderRoute: typeof JewelleriesIndexRouteImport
+      parentRoute: typeof JewelleriesRoute
+    }
+    '/jewelleries/$slug': {
+      id: '/jewelleries/$slug'
+      path: '/$slug'
+      fullPath: '/jewelleries/$slug'
+      preLoaderRoute: typeof JewelleriesSlugRouteImport
+      parentRoute: typeof JewelleriesRoute
+    }
+    '/product/$id': {
+      id: '/product/$id'
+      path: '/product/$id'
+      fullPath: '/product/$id'
+      preLoaderRoute: typeof ProductIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface CollectionsRouteChildren {
-  CollectionsSlugRoute: typeof CollectionsSlugRoute
+interface AdminRouteChildren {
+  AdminCategoriesRoute: typeof AdminCategoriesRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminMediaManagerRoute: typeof AdminMediaManagerRoute
+  AdminProductsRoute: typeof AdminProductsRoute
+  AdminRatesRoute: typeof AdminRatesRoute
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
-const CollectionsRouteChildren: CollectionsRouteChildren = {
-  CollectionsSlugRoute: CollectionsSlugRoute,
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminCategoriesRoute: AdminCategoriesRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminMediaManagerRoute: AdminMediaManagerRoute,
+  AdminProductsRoute: AdminProductsRoute,
+  AdminRatesRoute: AdminRatesRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 
-const CollectionsRouteWithChildren = CollectionsRoute._addFileChildren(
-  CollectionsRouteChildren,
-)
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
-interface ProductsRouteChildren {
-  ProductsIdRoute: typeof ProductsIdRoute
+interface JewelleriesRouteChildren {
+  JewelleriesSlugRoute: typeof JewelleriesSlugRoute
+  JewelleriesIndexRoute: typeof JewelleriesIndexRoute
 }
 
-const ProductsRouteChildren: ProductsRouteChildren = {
-  ProductsIdRoute: ProductsIdRoute,
+const JewelleriesRouteChildren: JewelleriesRouteChildren = {
+  JewelleriesSlugRoute: JewelleriesSlugRoute,
+  JewelleriesIndexRoute: JewelleriesIndexRoute,
 }
 
-const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
-  ProductsRouteChildren,
+const JewelleriesRouteWithChildren = JewelleriesRoute._addFileChildren(
+  JewelleriesRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  CollectionsRoute: CollectionsRouteWithChildren,
+  AdminRoute: AdminRouteWithChildren,
   ContactRoute: ContactRoute,
-  ProductsRoute: ProductsRouteWithChildren,
+  JewelleriesRoute: JewelleriesRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ApiAdminAuthRoute: ApiAdminAuthRoute,
+  ApiCategoriesRoute: ApiCategoriesRoute,
+  ApiMediaRoute: ApiMediaRoute,
+  ApiProductsRoute: ApiProductsRoute,
+  ApiRatesRoute: ApiRatesRoute,
+  ProductIdRoute: ProductIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

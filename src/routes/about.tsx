@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Shield, Gem, Sparkles, Award, Target, Eye, HeartHandshake } from "lucide-react";
-import aboutHero from "@/assets/about-hero.jpg";
+import aboutHeroDefault from "@/assets/about-hero.jpg";
 import { SectionHeading } from "@/components/site/Section";
 import promo1 from "@/assets/promo-1.jpg";
 import promo2 from "@/assets/promo-2.jpg";
@@ -27,10 +28,35 @@ export const Route = createFileRoute("/about")({
 const iconMap = { shield: Shield, gem: Gem, sparkles: Sparkles, award: Award } as const;
 
 function AboutPage() {
+  const [aboutMedia, setAboutMedia] = useState({
+    heroImage: aboutHeroDefault,
+    storyImage: promo1,
+    craftImage: hero1,
+  });
+
+  useEffect(() => {
+    async function loadAbout() {
+      try {
+        const res = await fetch("/api/media?type=about");
+        const data = await res.json();
+        if (data && typeof data === "object") {
+          setAboutMedia({
+            heroImage: data.heroImage || aboutHeroDefault,
+            storyImage: data.storyImage || promo1,
+            craftImage: data.craftImage || hero1,
+          });
+        }
+      } catch (err) {
+        console.error("About media load error:", err);
+      }
+    }
+    loadAbout();
+  }, []);
+
   return (
     <>
       <section className="relative h-[45vh] sm:h-[55vh] overflow-hidden">
-        <img src={aboutHero} alt="A Banik Jewellers showroom" width={1920} height={900} className="absolute inset-0 w-full h-full object-cover" />
+        <img src={aboutMedia.heroImage} alt="A Banik Jewellers showroom" width={1920} height={900} className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-deep-red/80 via-deep-red/50 to-black/40" />
         <div className="relative h-full flex items-center px-6">
           <div className="max-w-7xl mx-auto w-full text-white reveal">
@@ -61,8 +87,8 @@ function AboutPage() {
             </p>
           </div>
           <div className="reveal grid grid-cols-2 gap-4">
-            <img src={hero1} alt="Craftsmanship" className="rounded-3xl aspect-[3/4] object-cover shadow-elegant" loading="lazy" />
-            <img src={cat1} alt="Necklace" className="rounded-3xl aspect-[3/4] object-cover mt-8 shadow-gold" loading="lazy" />
+            <img src={aboutMedia.craftImage} alt="Craftsmanship" className="rounded-3xl aspect-[3/4] object-cover shadow-elegant" loading="lazy" />
+            <img src={aboutMedia.storyImage} alt="Necklace" className="rounded-3xl aspect-[3/4] object-cover mt-8 shadow-gold" loading="lazy" />
           </div>
         </div>
       </section>
@@ -110,7 +136,7 @@ function AboutPage() {
         <div className="max-w-7xl mx-auto">
           <SectionHeading eyebrow="Inside" title="Store Gallery" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[aboutHero, hero1, hero2, promo1, cat1, cat2, promo2, aboutHero].map((img, i) => (
+            {[aboutMedia.heroImage, aboutMedia.craftImage, aboutMedia.storyImage, promo1, cat1, cat2, promo2, aboutHeroDefault].map((img, i) => (
               <div key={i} className="reveal rounded-2xl overflow-hidden aspect-square group border border-gold/20"
                 style={{ animationDelay: `${i * 60}ms` }}>
                 <img src={img} alt={`Gallery ${i + 1}`} loading="lazy"
@@ -127,10 +153,11 @@ function AboutPage() {
           <p className="mt-3 text-white/85">Experience our full collection in person — our team is delighted to guide you.</p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link to="/contact" className="px-6 py-3 rounded-full gradient-gold text-deep-red font-bold text-sm shadow-gold hover:scale-105 transition-elegant">GET DIRECTIONS</Link>
-            <Link to="/collections" className="px-6 py-3 rounded-full border border-white/70 text-white font-semibold text-sm hover:bg-white hover:text-deep-red transition-elegant">VIEW COLLECTIONS</Link>
+            <Link to="/jewelleries" className="px-6 py-3 rounded-full border border-white/70 text-white font-semibold text-sm hover:bg-white hover:text-deep-red transition-elegant">VIEW COLLECTIONS</Link>
           </div>
         </div>
       </section>
     </>
   );
 }
+

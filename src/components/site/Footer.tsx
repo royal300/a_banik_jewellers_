@@ -53,8 +53,7 @@ export function Footer() {
             {[
               { to: "/", label: "Home" },
               { to: "/about", label: "About Us" },
-              { to: "/collections", label: "Collections" },
-              { to: "/products", label: "Products" },
+              { to: "/jewelleries", label: "Jewelleries" },
               { to: "/contact", label: "Contact" },
             ].map((l) => (
               <li key={l.to}>
@@ -67,13 +66,12 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="text-gold font-semibold tracking-wider text-sm mb-4">COLLECTIONS</h4>
+          <h4 className="text-gold font-semibold tracking-wider text-sm mb-4">SHOWROOM CATEGORIES</h4>
           <ul className="space-y-2 text-sm">
             {categories.map((c) => (
               <li key={c.slug}>
                 <Link
-                  to="/collections/$slug"
-                  params={{ slug: c.slug }}
+                  to={`/jewelleries/${c.slug}`}
                   className="text-ivory/75 hover:text-gold transition-elegant"
                 >
                   {c.name}

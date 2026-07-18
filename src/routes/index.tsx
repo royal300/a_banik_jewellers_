@@ -7,7 +7,7 @@ import bannerWedding from "@/assets/banner-wedding.jpg";
 import bannerFestival from "@/assets/banner-festival.jpg";
 import promo1 from "@/assets/promo-1.jpg";
 import promo2 from "@/assets/promo-2.jpg";
-import { categories, products, testimonials, whyChooseUs } from "@/lib/data";
+import { categories as fallbackCategories, products as fallbackProducts, testimonials, whyChooseUs } from "@/lib/data";
 import { ProductCard } from "@/components/site/ProductCard";
 import { SectionHeading } from "@/components/site/Section";
 
@@ -25,17 +25,36 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-const slides = [
+const fallbackSlides = [
   { image: hero1, eyebrow: "Signature Bridal", title: "Premium Jewellery Collection", subtitle: "Timeless Elegance, Handcrafted for You" },
   { image: hero2, eyebrow: "New Season", title: "Radiance in Every Detail", subtitle: "Gold. Diamonds. Pure Artistry." },
 ];
 
 function Hero() {
+  const [slides, setSlides] = useState<any[]>(fallbackSlides);
   const [index, setIndex] = useState(0);
+
   useEffect(() => {
+    async function loadHero() {
+      try {
+        const res = await fetch("/api/media?type=hero");
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          setSlides(data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    loadHero();
+  }, []);
+
+  useEffect(() => {
+    if (slides.length <= 1) return;
     const t = setInterval(() => setIndex((i) => (i + 1) % slides.length), 5500);
     return () => clearInterval(t);
-  }, []);
+  }, [slides.length]);
+
   const go = (n: number) => setIndex((n + slides.length) % slides.length);
 
   return (
@@ -52,16 +71,16 @@ function Hero() {
             <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full">
               <div className={`max-w-xl text-white ${i === index ? "reveal" : ""}`}>
                 <div className="text-gold text-xs sm:text-sm font-bold tracking-[0.35em] uppercase mb-2 sm:mb-4">
-                  {s.eyebrow}
+                  {s.subtitle || s.eyebrow || "Signature Series"}
                 </div>
                 <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] drop-shadow-lg">
                   {s.title}
                 </h1>
                 <p className="mt-2 sm:mt-4 text-sm sm:text-lg text-white/85 max-w-md">
-                  {s.subtitle}
+                  {s.subtitle && s.eyebrow ? s.subtitle : "Timeless Elegance, Handcrafted for You"}
                 </p>
                 <div className="mt-5 sm:mt-8 flex flex-wrap gap-3">
-                  <Link to="/products"
+                  <Link to="/jewelleries"
                     className="px-6 py-3 rounded-full gradient-gold text-deep-red font-bold text-sm tracking-wide shadow-gold hover:scale-105 transition-elegant">
                     SHOP NOW
                   </Link>
@@ -76,19 +95,37 @@ function Hero() {
         </div>
       ))}
 
-
       {/* Dots */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-        {slides.map((_, i) => (
-          <button key={i} onClick={() => go(i)} aria-label={`Slide ${i + 1}`}
-            className={`h-2 rounded-full transition-all duration-500 ${i === index ? "w-10 bg-gold" : "w-2 bg-white/60"}`} />
-        ))}
-      </div>
+      {slides.length > 1 && (
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {slides.map((_, i) => (
+            <button key={i} onClick={() => go(i)} aria-label={`Slide ${i + 1}`}
+              className={`h-2 rounded-full transition-all duration-500 ${i === index ? "w-10 bg-gold" : "w-2 bg-white/60"}`} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
 
 function CategorySection() {
+  const [categories, setCategories] = useState<any[]>(fallbackCategories);
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/categories?home=1");
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          setCategories(data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    load();
+  }, []);
+
   return (
     <section className="py-16 sm:py-24 px-4">
       <div className="max-w-7xl mx-auto">
@@ -96,11 +133,11 @@ function CategorySection() {
           subtitle="From heirloom bridal sets to everyday elegance — discover the perfect piece from our curated collections." />
         <div className="grid grid-cols-3 md:grid-cols-6 gap-4 sm:gap-6">
           {categories.map((c, i) => (
-            <Link key={c.slug} to="/collections/$slug" params={{ slug: c.slug }}
+            <Link key={c.slug || c.id} to={`/jewelleries/${c.slug || c.id}`}
               style={{ animationDelay: `${i * 60}ms` }}
-              className="reveal group text-center">
+              className="reveal group text-center block">
               <div className="mx-auto aspect-[3/4] w-full rounded-full overflow-hidden border-2 border-gold/40 bg-card shadow-sm group-hover:shadow-gold group-hover:border-gold transition-elegant relative">
-                <img src={c.image} alt={c.name} loading="lazy"
+                <img src={c.image || "/assets/cat-gold.jpg"} alt={c.name} loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-[transform] duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-deep-red/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
@@ -115,20 +152,46 @@ function CategorySection() {
   );
 }
 
-function BannerDuo({ items }: { items: { image: string; eyebrow: string; title: string; cta: string; to: string }[] }) {
+function BannerSection() {
+  const [banners, setBanners] = useState<any[]>([]);
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/media?type=promo");
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          setBanners(data);
+        } else {
+          setBanners([
+            { image: bannerWedding, subtitle: "Signature Series", title: "Wedding Collection", link: "/jewelleries/necklace" },
+            { image: bannerFestival, subtitle: "Limited Edition", title: "Festival Offers", link: "/jewelleries/gold" },
+            { image: promo1, subtitle: "Gold Bangles", title: "Everyday Radiance", link: "/jewelleries/bangles" },
+            { image: promo2, subtitle: "Diamond Series", title: "Brilliance Reimagined", link: "/jewelleries/diamond" },
+          ]);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    load();
+  }, []);
+
+  if (banners.length === 0) return null;
+
   return (
     <section className="py-6 sm:py-10 px-4">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-        {items.map((b, i) => (
-          <Link key={i} to={b.to} className="reveal group relative rounded-3xl overflow-hidden shadow-elegant h-[360px] sm:h-[440px] md:h-[480px] block w-full">
+        {banners.map((b, i) => (
+          <Link key={i} to={b.link || "/jewelleries"} className="reveal group relative rounded-3xl overflow-hidden shadow-elegant h-[360px] sm:h-[440px] md:h-[480px] block w-full">
             <img src={b.image} alt={b.title} loading="lazy"
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-[transform] duration-[900ms]" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
             <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end text-white">
-              <div className="text-gold text-xs font-bold tracking-[0.35em] uppercase mb-1 sm:mb-2">{b.eyebrow}</div>
+              <div className="text-gold text-xs font-bold tracking-[0.35em] uppercase mb-1 sm:mb-2">{b.subtitle || "Signature Series"}</div>
               <h3 className="text-2xl sm:text-3xl font-bold">{b.title}</h3>
               <div className="mt-3 sm:mt-4 inline-flex items-center gap-2 text-xs sm:text-sm font-semibold group-hover:gap-4 transition-all">
-                {b.cta}
+                EXPLORE COLLECTION
                 <span className="h-px w-8 bg-gold group-hover:w-14 transition-all" />
               </div>
             </div>
@@ -140,8 +203,32 @@ function BannerDuo({ items }: { items: { image: string; eyebrow: string; title: 
 }
 
 function FeaturedCarousel() {
-  const featured = products.slice(0, 8);
+  const [featured, setFeatured] = useState<any[]>(fallbackProducts.slice(0, 8));
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/products?featured=1");
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          setFeatured(data);
+        } else {
+          // If no products marked featured yet, show all
+          const allRes = await fetch("/api/products");
+          const allData = await allRes.json();
+          if (Array.isArray(allData) && allData.length > 0) {
+            setFeatured(allData.slice(0, 8));
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    load();
+  }, []);
+
   const loop = [...featured, ...featured];
+
   return (
     <section className="py-16 sm:py-24 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
@@ -160,8 +247,8 @@ function FeaturedCarousel() {
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent" />
       </div>
       <div className="max-w-7xl mx-auto text-center mt-10">
-        <Link to="/products" className="inline-flex px-8 py-3 rounded-full gradient-red text-white font-bold text-sm tracking-wider shadow-gold hover:scale-105 transition-elegant">
-          VIEW ALL PRODUCTS
+        <Link to="/jewelleries" className="inline-flex px-8 py-3 rounded-full gradient-red text-white font-bold text-sm tracking-wider shadow-gold hover:scale-105 transition-elegant">
+          VIEW ALL JEWELLERIES
         </Link>
       </div>
     </section>
@@ -262,17 +349,11 @@ function HomePage() {
     <>
       <Hero />
       <CategorySection />
-      <BannerDuo items={[
-        { image: bannerWedding, eyebrow: "Signature Series", title: "Wedding Collection", cta: "EXPLORE BRIDAL", to: "/collections/necklace" },
-        { image: bannerFestival, eyebrow: "Limited Edition", title: "Festival Offers", cta: "SHOP FESTIVE", to: "/collections/gold" },
-      ]} />
+      <BannerSection />
       <FeaturedCarousel />
       <WhyChoose />
-      <BannerDuo items={[
-        { image: promo1, eyebrow: "Gold Bangles", title: "Everyday Radiance", cta: "DISCOVER", to: "/collections/bangles" },
-        { image: promo2, eyebrow: "Diamond Series", title: "Brilliance Reimagined", cta: "DISCOVER", to: "/collections/diamond" },
-      ]} />
       <Testimonials />
     </>
   );
 }
+

@@ -10,14 +10,13 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entries = [
           { path: "/", priority: "1.0", changefreq: "weekly" as const },
           { path: "/about", priority: "0.8", changefreq: "monthly" as const },
-          { path: "/collections", priority: "0.9", changefreq: "weekly" as const },
-          { path: "/collections/gold", priority: "0.8", changefreq: "weekly" as const },
-          { path: "/collections/diamond", priority: "0.8", changefreq: "weekly" as const },
-          { path: "/collections/silver", priority: "0.8", changefreq: "weekly" as const },
-          { path: "/collections/necklace", priority: "0.8", changefreq: "weekly" as const },
-          { path: "/collections/rings", priority: "0.8", changefreq: "weekly" as const },
-          { path: "/collections/bangles", priority: "0.8", changefreq: "weekly" as const },
-          { path: "/products", priority: "0.9", changefreq: "weekly" as const },
+          { path: "/jewelleries", priority: "0.9", changefreq: "weekly" as const },
+          { path: "/jewelleries/gold", priority: "0.8", changefreq: "weekly" as const },
+          { path: "/jewelleries/diamond", priority: "0.8", changefreq: "weekly" as const },
+          { path: "/jewelleries/silver", priority: "0.8", changefreq: "weekly" as const },
+          { path: "/jewelleries/necklace", priority: "0.8", changefreq: "weekly" as const },
+          { path: "/jewelleries/rings", priority: "0.8", changefreq: "weekly" as const },
+          { path: "/jewelleries/bangles", priority: "0.8", changefreq: "weekly" as const },
           { path: "/contact", priority: "0.7", changefreq: "monthly" as const },
         ];
         const xml = [
@@ -35,3 +34,4 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
+

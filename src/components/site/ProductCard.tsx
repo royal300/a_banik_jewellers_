@@ -4,8 +4,7 @@ import type { Product } from "@/lib/data";
 export function ProductCard({ product }: { product: Product }) {
   return (
     <Link
-      to="/products/$id"
-      params={{ id: product.id }}
+      to={`/product/${product.id}`}
       className="group block rounded-2xl bg-card overflow-hidden border border-gold/20 shadow-sm hover:shadow-elegant hover:-translate-y-1 transition-elegant"
     >
       <div className="aspect-square overflow-hidden bg-muted">
