@@ -60,84 +60,87 @@ function AdminLayout() {
   ];
 
   return (
-    <div className="min-h-screen bg-[oklch(0.18_0.04_25)] text-ivory flex flex-col lg:flex-row font-sans">
+    <div
+      className="min-h-screen bg-[#F8F9FA] text-[#1A1A1A] flex flex-col lg:flex-row font-sans selection:bg-red-600 selection:text-white"
+      style={{ zoom: "0.78" }}
+    >
       {/* Mobile top bar */}
-      <div className="lg:hidden bg-[oklch(0.22_0.04_25)] border-b border-gold/30 px-4 py-4 flex items-center justify-between sticky top-0 z-50">
+      <div className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-50 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full gradient-gold grid place-items-center">
-            <Gem className="w-5 h-5 text-deep-red" />
+          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-red-600 to-red-800 grid place-items-center shadow-sm">
+            <Gem className="w-4 h-4 text-white" />
           </div>
           <div>
-            <div className="font-extrabold tracking-wider text-base">A BANIK ADMIN</div>
-            <div className="text-[10px] tracking-widest text-gold uppercase">Management Portal</div>
+            <div className="font-extrabold tracking-wider text-sm text-gray-900">A BANIK ADMIN</div>
+            <div className="text-[9px] tracking-widest text-red-600 font-bold uppercase">Management Portal</div>
           </div>
         </div>
         <button
           onClick={() => setSidebarOpen((v) => !v)}
-          className="p-2 rounded-lg border border-gold/40 text-gold"
+          className="p-2 rounded-lg border border-gray-200 text-gray-700 hover:bg-red-50 hover:text-red-600"
           aria-label="Toggle menu"
         >
-          {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:sticky top-0 left-0 h-screen w-72 bg-[oklch(0.22_0.04_25)] border-r border-gold/30 flex flex-col justify-between p-6 z-40 transition-transform duration-300 ${
+        className={`fixed lg:sticky top-0 left-0 h-screen w-64 bg-white border-r border-gray-200/80 flex flex-col justify-between p-5 z-40 transition-transform duration-300 shadow-sm ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
         <div>
           {/* Brand header */}
-          <div className="hidden lg:flex items-center gap-3 mb-8 pb-6 border-b border-gold/20">
-            <div className="w-12 h-12 rounded-full gradient-gold grid place-items-center shadow-gold shrink-0">
-              <Gem className="w-6 h-6 text-deep-red" />
+          <div className="hidden lg:flex items-center gap-3 mb-6 pb-5 border-b border-gray-100">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-red-600 to-red-800 grid place-items-center shadow-md shadow-red-600/20 shrink-0">
+              <Gem className="w-5 h-5 text-white" />
             </div>
             <div>
-              <div className="font-extrabold tracking-wider text-lg text-ivory">A BANIK</div>
-              <div className="text-xs tracking-[0.25em] text-gold font-bold">ADMIN PANEL</div>
+              <div className="font-extrabold tracking-wider text-base text-gray-900">A BANIK</div>
+              <div className="text-[10px] tracking-[0.2em] text-red-600 font-bold uppercase">ADMIN PANEL</div>
             </div>
           </div>
 
-          <nav className="space-y-2">
+          <nav className="space-y-1.5">
             {navItems.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
                 activeOptions={{ exact: item.exact }}
-                activeProps={{ className: "bg-gold text-deep-red font-extrabold shadow-gold" }}
-                inactiveProps={{ className: "text-ivory/80 hover:bg-gold/15 hover:text-gold" }}
+                activeProps={{ className: "bg-red-600 text-white font-bold shadow-md shadow-red-600/20" }}
+                inactiveProps={{ className: "text-gray-600 hover:bg-red-50 hover:text-red-700 font-medium" }}
                 onClick={() => setSidebarOpen(false)}
-                className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-semibold transition-elegant"
+                className="flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs sm:text-sm transition-all"
               >
-                <item.icon className="w-5 h-5 shrink-0" />
+                <item.icon className="w-4 h-4 shrink-0" />
                 <span>{item.label}</span>
               </Link>
             ))}
           </nav>
         </div>
 
-        <div className="space-y-3 pt-6 border-t border-gold/20">
+        <div className="space-y-2.5 pt-5 border-t border-gray-100">
           <Link
             to="/"
             target="_blank"
-            className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-gold/50 text-gold hover:bg-gold hover:text-deep-red transition-elegant text-sm font-bold"
+            className="flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl border border-gray-200 text-gray-700 hover:border-red-600 hover:text-red-600 hover:bg-red-50/50 transition-all text-xs font-bold"
           >
-            <ExternalLink className="w-4 h-4" />
+            <ExternalLink className="w-3.5 h-3.5" />
             <span>VIEW LIVE SITE</span>
           </Link>
           <button
             onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-red-900/60 border border-red-500/50 text-red-200 hover:bg-red-800 transition-elegant text-sm font-bold"
+            className="w-full flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-red-50 border border-red-200 text-red-700 hover:bg-red-600 hover:text-white transition-all text-xs font-bold shadow-sm"
           >
-            <LogOut className="w-4 h-4" />
+            <LogOut className="w-3.5 h-3.5" />
             <span>LOGOUT</span>
           </button>
         </div>
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 min-h-screen p-4 sm:p-8 overflow-y-auto">
+      <main className="flex-1 min-h-screen p-4 sm:p-6 lg:p-8 overflow-y-auto">
         <div className="max-w-7xl mx-auto">
           <Outlet />
         </div>

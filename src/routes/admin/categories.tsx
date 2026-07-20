@@ -114,97 +114,97 @@ function AdminCategories() {
   };
 
   return (
-    <div className="space-y-8 animate-hero-fade">
+    <div className="space-y-6 animate-hero-fade">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="text-gold text-xs font-bold tracking-[0.3em] uppercase mb-1 flex items-center gap-2">
+          <div className="text-red-600 text-xs font-bold tracking-[0.2em] uppercase mb-1 flex items-center gap-2">
             <Sparkles className="w-4 h-4" /> Catalogue Control
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-ivory">Showroom Categories</h1>
-          <p className="text-ivory/70 mt-1 text-sm sm:text-base">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">Showroom Categories</h1>
+          <p className="text-gray-600 mt-1 text-xs sm:text-sm">
             Create categories and mark whether they appear on the Home screen in "Shop By Category".
           </p>
         </div>
         <button
           onClick={openAdd}
-          className="px-6 py-4 rounded-full gradient-gold text-deep-red font-extrabold text-sm tracking-wider shadow-gold hover:scale-105 transition-elegant flex items-center gap-2 shrink-0"
+          className="px-5 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs tracking-wider shadow-sm transition-all flex items-center gap-2 shrink-0"
         >
-          <Plus className="w-5 h-5" /> ADD NEW CATEGORY
+          <Plus className="w-4 h-4" /> ADD NEW CATEGORY
         </button>
       </div>
 
       {/* Categories Table/List */}
-      <div className="bg-[oklch(0.22_0.04_25)] border-2 border-gold/30 rounded-3xl overflow-hidden shadow-gold">
+      <div className="bg-white border border-gray-200/80 rounded-2xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-gold/20 bg-black/30 text-gold text-xs uppercase tracking-widest">
-                <th className="py-4 px-6">Image</th>
-                <th className="py-4 px-6">Category Name & Slug</th>
-                <th className="py-4 px-6">Description</th>
-                <th className="py-4 px-6 text-center">Show in Home Page</th>
-                <th className="py-4 px-6 text-right">Actions</th>
+              <tr className="border-b border-gray-200 bg-gray-50 text-gray-600 text-[11px] font-bold uppercase tracking-wider">
+                <th className="py-3.5 px-5">Image</th>
+                <th className="py-3.5 px-5">Category Name & Slug</th>
+                <th className="py-3.5 px-5">Description</th>
+                <th className="py-3.5 px-5 text-center">Show in Home Page</th>
+                <th className="py-3.5 px-5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gold/15 text-sm">
+            <tbody className="divide-y divide-gray-100 text-xs sm:text-sm">
               {loading ? (
                 <tr>
-                  <td colSpan={5} className="py-12 text-center text-ivory/60">Loading showroom categories...</td>
+                  <td colSpan={5} className="py-10 text-center text-gray-400 font-medium">Loading showroom categories...</td>
                 </tr>
               ) : categories.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="py-12 text-center text-ivory/60">No categories found. Click "Add New Category" above.</td>
+                  <td colSpan={5} className="py-10 text-center text-gray-400 font-medium">No categories found. Click "Add New Category" above.</td>
                 </tr>
               ) : (
                 categories.map((cat) => (
-                  <tr key={cat.id} className="hover:bg-gold/5 transition-colors">
-                    <td className="py-4 px-6">
+                  <tr key={cat.id} className="hover:bg-red-50/30 transition-colors">
+                    <td className="py-3.5 px-5">
                       <img
                         src={cat.image || "/assets/cat-gold.jpg"}
                         alt={cat.name}
-                        className="w-14 h-14 rounded-2xl object-cover border border-gold/40 shadow-sm"
+                        className="w-12 h-12 rounded-xl object-cover border border-gray-200 shadow-sm"
                       />
                     </td>
-                    <td className="py-4 px-6">
-                      <div className="font-extrabold text-base text-ivory">{cat.name}</div>
-                      <div className="text-xs text-gold font-mono tracking-wider">/jewelleries/{cat.slug}</div>
+                    <td className="py-3.5 px-5">
+                      <div className="font-extrabold text-sm text-gray-900">{cat.name}</div>
+                      <div className="text-[11px] text-red-600 font-mono tracking-wider">/jewelleries/{cat.slug}</div>
                     </td>
-                    <td className="py-4 px-6 max-w-md text-ivory/75 truncate">{cat.description}</td>
-                    <td className="py-4 px-6 text-center">
+                    <td className="py-3.5 px-5 max-w-md text-gray-600 truncate text-xs">{cat.description}</td>
+                    <td className="py-3.5 px-5 text-center">
                       <button
                         onClick={() => toggleShowHome(cat)}
-                        className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold border transition-elegant ${
+                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[11px] font-bold border transition-all ${
                           cat.show_in_home !== 0 && cat.show_in_home !== false
-                            ? "bg-gold text-deep-red border-gold shadow-gold"
-                            : "bg-black/40 text-ivory/50 border-gold/20 hover:border-gold/50"
+                            ? "bg-red-50 text-red-700 border-red-200 shadow-sm"
+                            : "bg-gray-50 text-gray-500 border-gray-200 hover:border-gray-300"
                         }`}
                       >
                         {cat.show_in_home !== 0 && cat.show_in_home !== false ? (
                           <>
-                            <Check className="w-4 h-4" /> SHOWN ON HOME
+                            <Check className="w-3.5 h-3.5 text-red-600" /> SHOWN ON HOME
                           </>
                         ) : (
                           <>
-                            <X className="w-4 h-4" /> HIDDEN ON HOME
+                            <X className="w-3.5 h-3.5 text-gray-400" /> HIDDEN ON HOME
                           </>
                         )}
                       </button>
                     </td>
-                    <td className="py-4 px-6 text-right">
-                      <div className="flex items-center justify-end gap-2">
+                    <td className="py-3.5 px-5 text-right">
+                      <div className="flex items-center justify-end gap-1.5">
                         <button
                           onClick={() => openEdit(cat)}
-                          className="p-2.5 rounded-xl border border-gold/40 text-gold hover:bg-gold hover:text-deep-red transition-elegant"
+                          className="p-2 rounded-lg border border-gray-200 text-gray-700 hover:border-red-600 hover:text-red-600 hover:bg-red-50 transition-all"
                           title="Edit Category"
                         >
-                          <Edit2 className="w-4 h-4" />
+                          <Edit2 className="w-3.5 h-3.5" />
                         </button>
                         <button
                           onClick={() => handleDelete(cat.id)}
-                          className="p-2.5 rounded-xl border border-red-500/40 text-red-300 hover:bg-red-900/60 transition-elegant"
+                          className="p-2 rounded-lg border border-red-200 text-red-600 hover:bg-red-600 hover:text-white transition-all"
                           title="Delete Category"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </td>
@@ -218,51 +218,51 @@ function AdminCategories() {
 
       {/* Modal Form */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="bg-[oklch(0.22_0.04_25)] border-2 border-gold/40 rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-gold animate-hero-fade my-8">
-            <div className="flex items-center justify-between pb-4 border-b border-gold/20 mb-6">
-              <h3 className="text-2xl font-extrabold text-ivory">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="bg-white border border-gray-200 rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-2xl animate-hero-fade my-8">
+            <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-5">
+              <h3 className="text-xl font-extrabold text-gray-900">
                 {editing ? "Edit Category" : "Add New Category"}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-2 rounded-lg text-ivory/60 hover:text-ivory"
+                className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="text-xs font-bold tracking-widest text-gold uppercase block mb-2">Category Name *</label>
+                <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block mb-1.5">Category Name *</label>
                 <input
                   type="text"
                   required
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="e.g. Bridal Necklaces"
-                  className="w-full bg-black/40 border border-gold/30 rounded-xl px-4 py-3 text-ivory focus:border-gold outline-none transition-elegant"
+                  className="w-full bg-gray-50/80 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:border-red-600 focus:ring-2 focus:ring-red-100 outline-none transition-all"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold tracking-widest text-gold uppercase block mb-2">URL Slug (optional)</label>
+                <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block mb-1.5">URL Slug (optional)</label>
                 <input
                   type="text"
                   value={form.slug}
                   onChange={(e) => setForm({ ...form, slug: e.target.value })}
                   placeholder="e.g. bridal-necklaces (auto-generated if empty)"
-                  className="w-full bg-black/40 border border-gold/30 rounded-xl px-4 py-3 text-ivory focus:border-gold outline-none transition-elegant"
+                  className="w-full bg-gray-50/80 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:border-red-600 focus:ring-2 focus:ring-red-100 outline-none transition-all"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold tracking-widest text-gold uppercase block mb-2">Category Image *</label>
+                <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block mb-1.5">Category Image *</label>
                 <div className="flex flex-col sm:flex-row items-center gap-4">
                   <img
                     src={form.image || "/assets/cat-gold.jpg"}
                     alt="Preview"
-                    className="w-20 h-20 rounded-2xl object-cover border border-gold/40 shrink-0"
+                    className="w-16 h-16 rounded-xl object-cover border border-gray-200 shrink-0 shadow-sm"
                   />
                   <div className="flex-1 w-full space-y-2">
                     <input
@@ -270,10 +270,10 @@ function AdminCategories() {
                       value={form.image}
                       onChange={(e) => setForm({ ...form, image: e.target.value })}
                       placeholder="Image URL or pick file ->"
-                      className="w-full bg-black/40 border border-gold/30 rounded-xl px-4 py-2.5 text-xs text-ivory focus:border-gold outline-none"
+                      className="w-full bg-gray-50/80 border border-gray-200 rounded-xl px-3 py-2 text-xs text-gray-900 focus:border-red-600 outline-none"
                     />
-                    <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-gold/50 bg-gold/10 text-gold text-xs font-bold cursor-pointer hover:bg-gold hover:text-deep-red transition-elegant">
-                      <ImageIcon className="w-4 h-4" /> UPLOAD IMAGE FILE
+                    <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-red-200 bg-red-50 text-red-700 text-xs font-bold cursor-pointer hover:bg-red-600 hover:text-white transition-all">
+                      <ImageIcon className="w-3.5 h-3.5" /> UPLOAD IMAGE FILE
                       <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                     </label>
                   </div>
@@ -281,44 +281,44 @@ function AdminCategories() {
               </div>
 
               <div>
-                <label className="text-xs font-bold tracking-widest text-gold uppercase block mb-2">Description</label>
+                <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block mb-1.5">Description</label>
                 <textarea
-                  rows={3}
+                  rows={2}
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
                   placeholder="Enter short description for this category..."
-                  className="w-full bg-black/40 border border-gold/30 rounded-xl px-4 py-3 text-ivory focus:border-gold outline-none transition-elegant"
+                  className="w-full bg-gray-50/80 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:border-red-600 focus:ring-2 focus:ring-red-100 outline-none transition-all"
                 />
               </div>
 
-              <div className="pt-2">
-                <label className="flex items-center gap-3 cursor-pointer bg-black/40 border border-gold/30 rounded-xl p-4 hover:border-gold transition-elegant">
+              <div className="pt-1">
+                <label className="flex items-center gap-3 cursor-pointer bg-gray-50/80 border border-gray-200 rounded-xl p-3.5 hover:border-red-600 transition-all">
                   <input
                     type="checkbox"
                     checked={form.show_in_home}
                     onChange={(e) => setForm({ ...form, show_in_home: e.target.checked })}
-                    className="w-5 h-5 accent-gold rounded cursor-pointer"
+                    className="w-4 h-4 accent-red-600 rounded cursor-pointer"
                   />
                   <div>
-                    <div className="font-bold text-ivory text-sm">Show on Home Page</div>
-                    <div className="text-xs text-ivory/60">
+                    <div className="font-bold text-gray-900 text-xs">Show on Home Page</div>
+                    <div className="text-[11px] text-gray-500">
                       If checked, this category will be showcased in the "Shop By Category" section on the Home screen.
                     </div>
                   </div>
                 </label>
               </div>
 
-              <div className="pt-4 flex items-center justify-end gap-3 border-t border-gold/20">
+              <div className="pt-4 flex items-center justify-end gap-2.5 border-t border-gray-100">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-6 py-3 rounded-full border border-gold/40 text-ivory text-sm font-bold hover:bg-gold/10"
+                  className="px-5 py-2.5 rounded-xl border border-gray-200 text-gray-700 text-xs font-bold hover:bg-gray-50"
                 >
                   CANCEL
                 </button>
                 <button
                   type="submit"
-                  className="px-8 py-3 rounded-full gradient-gold text-deep-red text-sm font-extrabold shadow-gold hover:scale-105 transition-elegant"
+                  className="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-sm transition-all"
                 >
                   {editing ? "UPDATE CATEGORY" : "SAVE CATEGORY"}
                 </button>

@@ -42,112 +42,112 @@ function AdminDashboard() {
   }, []);
 
   return (
-    <div className="space-y-8 animate-hero-fade">
+    <div className="space-y-6 animate-hero-fade">
       <div>
-        <div className="text-gold text-xs font-bold tracking-[0.3em] uppercase mb-1 flex items-center gap-2">
+        <div className="text-red-600 text-xs font-bold tracking-[0.2em] uppercase mb-1 flex items-center gap-2">
           <Sparkles className="w-4 h-4" /> Welcome Back, Admin
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-ivory">Dashboard Overview</h1>
-        <p className="text-ivory/70 mt-1 text-sm sm:text-base">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">Dashboard Overview</h1>
+        <p className="text-gray-600 mt-1 text-xs sm:text-sm">
           Manage your live showroom categories, jewellery products, promo banners, and metal rates right here.
         </p>
       </div>
 
       {/* Quick Stats Grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Link
           to="/admin/categories"
-          className="bg-[oklch(0.22_0.04_25)] border-2 border-gold/30 rounded-3xl p-6 hover:border-gold transition-elegant group flex flex-col justify-between"
+          className="bg-white border border-gray-200/80 rounded-2xl p-5 hover:border-red-600 transition-all group flex flex-col justify-between shadow-sm"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 rounded-2xl gradient-gold grid place-items-center shadow-gold">
-              <Grid className="w-6 h-6 text-deep-red" />
+          <div className="flex items-center justify-between mb-3">
+            <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 grid place-items-center">
+              <Grid className="w-5 h-5 text-red-600" />
             </div>
-            <ArrowRight className="w-5 h-5 text-gold group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all" />
           </div>
           <div>
-            <div className="text-3xl font-extrabold text-ivory">{loading ? "-" : stats.categories}</div>
-            <div className="text-xs font-bold tracking-wider text-gold uppercase mt-1">Showroom Categories</div>
+            <div className="text-2xl font-extrabold text-gray-900">{loading ? "-" : stats.categories}</div>
+            <div className="text-[11px] font-bold tracking-wider text-gray-500 uppercase mt-0.5">Showroom Categories</div>
           </div>
         </Link>
 
         <Link
           to="/admin/products"
-          className="bg-[oklch(0.22_0.04_25)] border-2 border-gold/30 rounded-3xl p-6 hover:border-gold transition-elegant group flex flex-col justify-between"
+          className="bg-white border border-gray-200/80 rounded-2xl p-5 hover:border-red-600 transition-all group flex flex-col justify-between shadow-sm"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 rounded-2xl gradient-gold grid place-items-center shadow-gold">
-              <ShoppingBag className="w-6 h-6 text-deep-red" />
+          <div className="flex items-center justify-between mb-3">
+            <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 grid place-items-center">
+              <ShoppingBag className="w-5 h-5 text-red-600" />
             </div>
-            <ArrowRight className="w-5 h-5 text-gold group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all" />
           </div>
           <div>
-            <div className="text-3xl font-extrabold text-ivory">{loading ? "-" : stats.products}</div>
-            <div className="text-xs font-bold tracking-wider text-gold uppercase mt-1">Jewellery Products</div>
+            <div className="text-2xl font-extrabold text-gray-900">{loading ? "-" : stats.products}</div>
+            <div className="text-[11px] font-bold tracking-wider text-gray-500 uppercase mt-0.5">Jewellery Products</div>
           </div>
         </Link>
 
         <Link
           to="/admin/media-manager"
-          className="bg-[oklch(0.22_0.04_25)] border-2 border-gold/30 rounded-3xl p-6 hover:border-gold transition-elegant group flex flex-col justify-between"
+          className="bg-white border border-gray-200/80 rounded-2xl p-5 hover:border-red-600 transition-all group flex flex-col justify-between shadow-sm"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 rounded-2xl gradient-gold grid place-items-center shadow-gold">
-              <ImageIcon className="w-6 h-6 text-deep-red" />
+          <div className="flex items-center justify-between mb-3">
+            <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 grid place-items-center">
+              <ImageIcon className="w-5 h-5 text-red-600" />
             </div>
-            <ArrowRight className="w-5 h-5 text-gold group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all" />
           </div>
           <div>
-            <div className="text-3xl font-extrabold text-ivory">{loading ? "-" : stats.banners}</div>
-            <div className="text-xs font-bold tracking-wider text-gold uppercase mt-1">Active Banners & Media</div>
+            <div className="text-2xl font-extrabold text-gray-900">{loading ? "-" : stats.banners}</div>
+            <div className="text-[11px] font-bold tracking-wider text-gray-500 uppercase mt-0.5">Active Banners & Media</div>
           </div>
         </Link>
 
         <Link
           to="/admin/rates"
-          className="bg-[oklch(0.22_0.04_25)] border-2 border-gold/30 rounded-3xl p-6 hover:border-gold transition-elegant group flex flex-col justify-between"
+          className="bg-white border border-gray-200/80 rounded-2xl p-5 hover:border-red-600 transition-all group flex flex-col justify-between shadow-sm"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 rounded-2xl gradient-gold grid place-items-center shadow-gold">
-              <TrendingUp className="w-6 h-6 text-deep-red" />
+          <div className="flex items-center justify-between mb-3">
+            <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 grid place-items-center">
+              <TrendingUp className="w-5 h-5 text-red-600" />
             </div>
-            <ArrowRight className="w-5 h-5 text-gold group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all" />
           </div>
           <div>
-            <div className="text-lg font-bold text-ivory truncate">{rates.gold22K}</div>
-            <div className="text-xs font-bold tracking-wider text-gold uppercase mt-1">Live 22K Gold Rate</div>
+            <div className="text-base font-bold text-gray-900 truncate">{rates.gold22K}</div>
+            <div className="text-[11px] font-bold tracking-wider text-gray-500 uppercase mt-0.5">Live 22K Gold Rate</div>
           </div>
         </Link>
       </div>
 
       {/* Live Metal Rates Preview Box */}
-      <div className="bg-[oklch(0.22_0.04_25)] border-2 border-gold/40 rounded-3xl p-6 sm:p-8 shadow-gold">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-gold/20">
+      <div className="bg-white border border-gray-200/80 rounded-2xl p-5 sm:p-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5 pb-4 border-b border-gray-100">
           <div>
-            <div className="text-gold text-xs font-bold tracking-widest uppercase">Navbar Live Feed Status</div>
-            <h2 className="text-2xl font-extrabold text-ivory">Current Showroom Metal Rates</h2>
+            <div className="text-red-600 text-[11px] font-bold tracking-widest uppercase">Navbar Live Feed Status</div>
+            <h2 className="text-lg sm:text-xl font-extrabold text-gray-900">Current Showroom Metal Rates</h2>
           </div>
           <Link
             to="/admin/rates"
-            className="px-6 py-3 rounded-full gradient-gold text-deep-red font-bold text-sm tracking-wider shadow-gold hover:scale-105 transition-elegant inline-flex items-center gap-2"
+            className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs tracking-wider shadow-sm transition-all inline-flex items-center gap-2"
           >
             <span>UPDATE RATES</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        <div className="grid sm:grid-cols-3 gap-6">
-          <div className="bg-black/40 border border-gold/30 rounded-2xl p-5">
-            <div className="text-xs text-gold/80 font-bold uppercase tracking-wider mb-1">22K Gold (Per Gram)</div>
-            <div className="text-2xl font-extrabold text-ivory">{rates.gold22K}</div>
+        <div className="grid sm:grid-cols-3 gap-4">
+          <div className="bg-gray-50/80 border border-gray-200 rounded-xl p-4">
+            <div className="text-[11px] text-gray-500 font-bold uppercase tracking-wider mb-1">22K Gold (Per Gram)</div>
+            <div className="text-xl font-extrabold text-gray-900">{rates.gold22K}</div>
           </div>
-          <div className="bg-black/40 border border-gold/30 rounded-2xl p-5">
-            <div className="text-xs text-gold/80 font-bold uppercase tracking-wider mb-1">24K Gold (Per Gram)</div>
-            <div className="text-2xl font-extrabold text-ivory">{rates.gold24K}</div>
+          <div className="bg-gray-50/80 border border-gray-200 rounded-xl p-4">
+            <div className="text-[11px] text-gray-500 font-bold uppercase tracking-wider mb-1">24K Gold (Per Gram)</div>
+            <div className="text-xl font-extrabold text-gray-900">{rates.gold24K}</div>
           </div>
-          <div className="bg-black/40 border border-gold/30 rounded-2xl p-5">
-            <div className="text-xs text-gold/80 font-bold uppercase tracking-wider mb-1">Silver (Per Gram)</div>
-            <div className="text-2xl font-extrabold text-ivory">{rates.silver}</div>
+          <div className="bg-gray-50/80 border border-gray-200 rounded-xl p-4">
+            <div className="text-[11px] text-gray-500 font-bold uppercase tracking-wider mb-1">Silver (Per Gram)</div>
+            <div className="text-xl font-extrabold text-gray-900">{rates.silver}</div>
           </div>
         </div>
       </div>
