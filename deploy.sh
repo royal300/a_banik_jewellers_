@@ -21,6 +21,9 @@ bun install
 echo "-> Building application (Nitro node preset)..."
 NITRO_PRESET=node bun run build
 
+echo "-> Applying MySQL max_allowed_packet fix (128MB)..."
+mysql -u root -pmypass -e "SET GLOBAL max_allowed_packet=134217728;" 2>/dev/null || true
+
 echo "-> Restarting PM2 process ($APP_NAME on Port $APP_PORT)..."
 if pm2 list | grep -q "$APP_NAME"; then
     PORT=$APP_PORT pm2 restart "$APP_NAME" --update-env

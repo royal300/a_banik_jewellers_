@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, Edit2, Trash2, Check, X, Image as ImageIcon, Sparkles } from "lucide-react";
+import { compressImageToBase64 } from "@/lib/image-compress";
 
 export const Route = createFileRoute("/admin/categories")({
   component: AdminCategories,
@@ -55,16 +56,14 @@ function AdminCategories() {
     setIsModalOpen(true);
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (reader.result) {
-          setForm((prev) => ({ ...prev, image: reader.result as string }));
-        }
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+    try {
+      const compressed = await compressImageToBase64(file, 1200, 0.82);
+      setForm((prev) => ({ ...prev, image: compressed }));
+    } catch (err) {
+      console.error("Image compression error:", err);
     }
   };
 

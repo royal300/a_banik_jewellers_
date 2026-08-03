@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, Edit2, Trash2, Check, X, Image as ImageIcon, Sparkles, Search, PlusCircle } from "lucide-react";
+import { compressImageToBase64 } from "@/lib/image-compress";
 
 export const Route = createFileRoute("/admin/products")({
   component: AdminProducts,
@@ -79,36 +80,31 @@ function AdminProducts() {
     setIsModalOpen(true);
   };
 
-  const handleMainImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMainImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (reader.result) {
-          const resultStr = reader.result as string;
-          setForm((prev) => {
-            const newThumbs = prev.thumbnails.length === 0 ? [resultStr] : [resultStr, ...prev.thumbnails.slice(1)];
-            return { ...prev, image: resultStr, thumbnails: newThumbs };
-          });
-        }
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+    try {
+      const compressed = await compressImageToBase64(file, 1200, 0.82);
+      setForm((prev) => {
+        const newThumbs = prev.thumbnails.length === 0 ? [compressed] : [compressed, ...prev.thumbnails.slice(1)];
+        return { ...prev, image: compressed, thumbnails: newThumbs };
+      });
+    } catch (err) {
+      console.error("Image compression error:", err);
     }
   };
 
-  const handleGalleryUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleGalleryUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (reader.result) {
-          setForm((prev) => ({
-            ...prev,
-            thumbnails: [...prev.thumbnails, reader.result as string],
-          }));
-        }
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+    try {
+      const compressed = await compressImageToBase64(file, 1200, 0.82);
+      setForm((prev) => ({
+        ...prev,
+        thumbnails: [...prev.thumbnails, compressed],
+      }));
+    } catch (err) {
+      console.error("Gallery image compression error:", err);
     }
   };
 

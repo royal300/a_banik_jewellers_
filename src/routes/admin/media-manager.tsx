@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, Edit2, Trash2, Image as ImageIcon, Sparkles, Check, Upload, X } from "lucide-react";
+import { compressImageToBase64 } from "@/lib/image-compress";
 
 export const Route = createFileRoute("/admin/media-manager")({
   component: AdminMediaManager,
@@ -86,20 +87,18 @@ function AdminMediaManager() {
     setIsModalOpen(true);
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, targetField: string, isAbout = false) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, targetField: string, isAbout = false) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (reader.result) {
-          if (isAbout) {
-            setAboutMedia((prev) => ({ ...prev, [targetField]: reader.result as string }));
-          } else {
-            setBannerForm((prev) => ({ ...prev, image: reader.result as string }));
-          }
-        }
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+    try {
+      const compressed = await compressImageToBase64(file, 1400, 0.85);
+      if (isAbout) {
+        setAboutMedia((prev) => ({ ...prev, [targetField]: compressed }));
+      } else {
+        setBannerForm((prev) => ({ ...prev, image: compressed }));
+      }
+    } catch (err) {
+      console.error("Image compression error:", err);
     }
   };
 
