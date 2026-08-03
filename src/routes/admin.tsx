@@ -141,7 +141,7 @@ function AdminLayout() {
 
       {/* Main Content Area */}
       <main className="flex-1 min-h-screen p-4 sm:p-6 lg:p-8 overflow-y-auto">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1600px] w-full mx-auto">
           <Outlet />
         </div>
       </main>

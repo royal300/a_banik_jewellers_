@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { TrendingUp, Check, Sparkles, AlertCircle } from "lucide-react";
+import { TrendingUp, Check, AlertCircle } from "lucide-react";
 
 export const Route = createFileRoute("/admin/rates")({
   component: AdminRates,
@@ -15,7 +15,8 @@ function AdminRates() {
     announcement: "Special festive discounts on diamond making charges!",
   });
   const [loading, setLoading] = useState(true);
-  const [saved, setSaved] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -44,24 +45,29 @@ function AdminRates() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSaved(false);
+    setMsg(null);
+    setError(null);
     try {
       const res = await fetch("/api/rates", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      if (res.ok) {
-        setSaved(true);
-        setTimeout(() => setSaved(false), 4000);
+      const data = await res.json();
+      if (res.ok && data.success !== false) {
+        setMsg("✅ Metal rates updated successfully! Live website pricing synchronized.");
+        setTimeout(() => setMsg(null), 4000);
+      } else {
+        setError(data.error || "Failed to update rates.");
       }
     } catch (err) {
       console.error(err);
+      setError("Network or server error updating metal rates.");
     }
   };
 
   return (
-    <div className="space-y-6 max-w-4xl animate-hero-fade">
+    <div className="space-y-6 max-w-5xl animate-hero-fade">
       <div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">Showroom Metal Rates & Ticker</h1>
         <p className="text-gray-600 mt-1 text-xs sm:text-sm">
@@ -83,16 +89,16 @@ function AdminRates() {
         </div>
       )}
 
-      <form onSubmit={handleSave} className="bg-white border border-gray-200/80 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
+      <form onSubmit={handleSubmit} className="bg-white border border-gray-200/80 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
         <div className="grid sm:grid-cols-3 gap-5">
           <div>
             <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block mb-1.5">22K Gold Rate *</label>
             <input
               type="text"
               required
-              value={form.rate_gold_22k}
-              onChange={(e) => setForm({ ...form, rate_gold_22k: e.target.value })}
-              placeholder="e.g. ₹ 7,150 / g"
+              value={form.rate_22k}
+              onChange={(e) => setForm({ ...form, rate_22k: e.target.value })}
+              placeholder="e.g. ₹ 7,285 / g"
               className="w-full bg-gray-50/80 border border-gray-200 rounded-xl px-4 py-3 text-base sm:text-lg font-extrabold text-gray-900 focus:border-red-600 focus:ring-2 focus:ring-red-100 outline-none transition-all"
             />
           </div>
@@ -102,9 +108,9 @@ function AdminRates() {
             <input
               type="text"
               required
-              value={form.rate_gold_24k}
-              onChange={(e) => setForm({ ...form, rate_gold_24k: e.target.value })}
-              placeholder="e.g. ₹ 7,800 / g"
+              value={form.rate_24k}
+              onChange={(e) => setForm({ ...form, rate_24k: e.target.value })}
+              placeholder="e.g. ₹ 7,945 / g"
               className="w-full bg-gray-50/80 border border-gray-200 rounded-xl px-4 py-3 text-base sm:text-lg font-extrabold text-gray-900 focus:border-red-600 focus:ring-2 focus:ring-red-100 outline-none transition-all"
             />
           </div>

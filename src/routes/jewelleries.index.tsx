@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles, ShieldCheck, Award, Gem, HeartHandshake } from "lucide-react";
+import { Sparkles, ShieldCheck, Award, Gem, HeartHandshake } from "lucide-react";
 import { categories as fallbackCategories } from "@/lib/data";
+import aboutHero from "@/assets/about-hero.jpg";
 
 export const Route = createFileRoute("/jewelleries/")({
   component: JewelleriesPage,
@@ -30,31 +31,34 @@ function JewelleriesPage() {
 
   return (
     <div className="bg-background min-h-screen text-foreground pb-20">
-      {/* Hero Header */}
-      <section className="relative py-16 sm:py-24 bg-gradient-to-b from-[oklch(0.22_0.04_25)] via-[oklch(0.20_0.04_25)] to-background border-b border-gold/20 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-15 pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 50% 30%, oklch(0.78 0.13 85) 0%, transparent 60%)",
-          }}
+      {/* Reddish Gradient Image Hero Header (matching About/Contact) */}
+      <section className="relative h-[36vh] sm:h-[45vh] overflow-hidden">
+        <img
+          src={aboutHero}
+          alt="Exquisite Jewelleries"
+          width={1920}
+          height={900}
+          className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/40 bg-gold/10 text-gold text-xs font-bold uppercase tracking-[0.25em] animate-hero-fade">
-            <Sparkles className="w-3.5 h-3.5" /> BIS Hallmarked Masterpieces
+        <div className="absolute inset-0 bg-gradient-to-r from-deep-red/85 via-deep-red/60 to-black/40" />
+        <div className="relative h-full flex items-center px-4 sm:px-8">
+          <div className="max-w-7xl mx-auto w-full text-white space-y-3">
+            <div className="inline-flex items-center gap-2 text-gold text-xs font-bold tracking-[0.3em] uppercase">
+              <Sparkles className="w-3.5 h-3.5" /> BIS Hallmarked Masterpieces
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Our Exquisite Jewelleries
+            </h1>
+            <p className="max-w-xl text-white/85 text-sm sm:text-base leading-relaxed">
+              Explore our curated showroom categories. From 22K Hallmarked Gold to IGI Certified Diamonds and traditional Bengali Karigar artistry.
+            </p>
           </div>
-          <h1 className="text-4xl sm:text-6xl font-extrabold text-deep-red tracking-tight animate-hero-fade">
-            Our Exquisite Jewelleries
-          </h1>
-          <p className="max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground leading-relaxed animate-hero-fade">
-            Explore our curated showroom categories. From 22K Hallmarked Gold and IGI Certified Diamonds to traditional Temple artistry, every category embodies generations of Bengali craftsmanship.
-          </p>
         </div>
       </section>
 
-      {/* Shop By Category Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
+      {/* Shop By Category Oval Grid (6 columns desktop, 2 columns mobile) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
           <h2 className="text-xs sm:text-sm uppercase tracking-[0.3em] text-gold font-bold">
             SHOWROOM CATEGORIES
           </h2>
@@ -67,43 +71,30 @@ function JewelleriesPage() {
         </div>
 
         {loading ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 sm:gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="h-96 rounded-3xl bg-card animate-pulse border border-gold/20" />
+              <div key={i} className="aspect-[3/4] rounded-full bg-card animate-pulse border border-gold/20" />
             ))}
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categories.map((cat) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 sm:gap-6">
+            {categories.map((c) => (
               <Link
-                key={cat.slug || cat.id}
-                to={`/jewelleries/${cat.slug}`}
-                className="group relative h-96 sm:h-[420px] rounded-3xl overflow-hidden border-2 border-gold/30 hover:border-gold shadow-gold transition-all duration-500 flex flex-col justify-end p-6 sm:p-8 bg-black"
+                key={c.slug || c.id}
+                to={`/jewelleries/${c.slug || c.id}`}
+                className="group text-center block"
               >
-                {/* Background Image */}
-                <img
-                  src={cat.image || "/assets/cat-gold.jpg"}
-                  alt={cat.name}
-                  className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:scale-110 group-hover:opacity-95 transition-all duration-700"
-                />
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent group-hover:from-black/90 transition-colors" />
-
-                {/* Content */}
-                <div className="relative z-10 space-y-3 transform group-hover:-translate-y-2 transition-transform duration-500">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold/20 border border-gold/50 text-gold text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
-                    <Gem className="w-3.5 h-3.5" /> Showroom Collection
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white group-hover:text-gold transition-colors">
-                    {cat.name}
-                  </h3>
-                  <p className="text-ivory/80 text-sm line-clamp-2 leading-relaxed">
-                    {cat.description || "Handcrafted heritage ornaments certified for purity."}
-                  </p>
-                  <div className="pt-2 flex items-center gap-2 text-gold font-bold text-sm tracking-wider uppercase group-hover:translate-x-2 transition-transform">
-                    <span>Explore All Designs</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
+                <div className="mx-auto aspect-[3/4] w-full rounded-full overflow-hidden border-2 border-gold/40 bg-card shadow-xs group-hover:shadow-gold group-hover:border-gold transition-all duration-300 relative">
+                  <img
+                    src={c.image || "/assets/cat-gold.jpg"}
+                    alt={c.name}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-deep-red/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div className="mt-3 text-xs sm:text-sm font-bold text-foreground group-hover:text-deep-red transition-colors leading-tight">
+                  {c.name}
                 </div>
               </Link>
             ))}
@@ -112,7 +103,7 @@ function JewelleriesPage() {
       </section>
 
       {/* Trust & Craftsmanship Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-gradient-to-r from-[oklch(0.22_0.04_25)] via-[oklch(0.26_0.05_25)] to-[oklch(0.22_0.04_25)] border-2 border-gold/40 rounded-3xl p-8 sm:p-12 shadow-gold text-ivory grid md:grid-cols-4 gap-8">
           <div className="flex flex-col items-center text-center space-y-2">
             <div className="w-14 h-14 rounded-2xl gradient-gold grid place-items-center shadow-gold mb-2">
