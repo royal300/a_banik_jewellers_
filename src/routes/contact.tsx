@@ -51,13 +51,13 @@ function ContactPage() {
                 <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full gradient-gold grid place-items-center mb-6 shadow-gold group-hover:scale-110 transition-elegant">
                   <c.icon className="w-8 h-8 sm:w-10 sm:h-10 text-deep-red" />
                 </div>
-                <div className="text-xs font-bold tracking-[0.25em] text-gold uppercase mb-2">Connect</div>
-                <h3 className="font-extrabold text-deep-red text-2xl sm:text-3xl">{c.title}</h3>
-                <p className="mt-4 text-lg sm:text-2xl font-bold text-foreground leading-relaxed group-hover:text-deep-red transition-elegant">{c.body}</p>
+                <div className="text-xs font-semibold tracking-[0.25em] text-gold uppercase mb-2">Connect</div>
+                <h3 className="font-bold text-deep-red text-xl sm:text-2xl">{c.title}</h3>
+                <p className="mt-3 text-base sm:text-xl font-medium text-foreground/90 leading-relaxed group-hover:text-deep-red transition-elegant">{c.body}</p>
               </div>
-              <div className="mt-8 pt-4 border-t border-gold/20 flex items-center justify-between text-sm sm:text-base font-bold text-gold group-hover:text-deep-red transition-elegant">
+              <div className="mt-8 pt-4 border-t border-gold/20 flex items-center justify-between text-xs sm:text-sm font-semibold text-gold group-hover:text-deep-red transition-elegant">
                 <span>Click to Connect</span>
-                <span className="text-xl">→</span>
+                <span className="text-lg">→</span>
               </div>
             </a>
           ))}
@@ -68,16 +68,16 @@ function ContactPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             <div>
-              <div className="text-gold text-xs sm:text-sm font-bold tracking-[0.35em] uppercase mb-1">Our Location</div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-deep-red">Find Us on Google Maps</h2>
+              <div className="text-gold text-xs sm:text-sm font-semibold tracking-[0.35em] uppercase mb-1">Our Location</div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-deep-red">Find Us on Google Maps</h2>
             </div>
             <a
               href={directionsUrl}
               target="_blank"
               rel="noreferrer"
-              className="px-8 py-4 rounded-full gradient-gold text-deep-red font-bold text-sm sm:text-base tracking-wider shadow-gold hover:scale-105 transition-elegant inline-flex items-center gap-3 shrink-0"
+              className="px-7 py-3.5 rounded-full gradient-gold text-deep-red font-semibold text-xs sm:text-sm tracking-wider shadow-gold hover:scale-105 transition-elegant inline-flex items-center gap-2.5 shrink-0"
             >
-              <MapPin className="w-5 h-5" /> GET DIRECTIONS NOW
+              <MapPin className="w-4 h-4" /> GET DIRECTIONS NOW
             </a>
           </div>
           <div className="reveal rounded-3xl overflow-hidden border-2 border-gold/40 shadow-elegant h-[450px] sm:h-[550px] w-full relative group">
@@ -96,12 +96,12 @@ function ContactPage() {
           <SectionHeading eyebrow="Store Hours" title="Business Hours" />
           <div className="rounded-3xl bg-card border border-gold/25 overflow-hidden divide-y divide-gold/15">
             {siteConfig.hours.map((h) => (
-              <div key={h.day} className="flex items-center justify-between px-6 py-5">
+              <div key={h.day} className="flex items-center justify-between px-6 py-4.5">
                 <div className="flex items-center gap-3">
                   <Clock className="w-4 h-4 text-gold" />
-                  <span className="font-semibold text-base sm:text-lg">{h.day}</span>
+                  <span className="font-medium text-sm sm:text-base text-foreground/90">{h.day}</span>
                 </div>
-                <span className="text-deep-red font-bold text-base sm:text-lg">{h.time}</span>
+                <span className="text-deep-red font-semibold text-sm sm:text-base">{h.time}</span>
               </div>
             ))}
           </div>

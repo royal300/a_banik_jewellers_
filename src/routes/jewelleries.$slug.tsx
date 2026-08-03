@@ -4,6 +4,8 @@ import { ArrowLeft, ArrowRight, Sparkles, Gem, MessageCircle, Eye } from "lucide
 import { products as fallbackProducts, categories as fallbackCategories } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
 
+import aboutHero from "@/assets/about-hero.jpg";
+
 export const Route = createFileRoute("/jewelleries/$slug")({
   component: CategoryProductsPage,
 });
@@ -54,20 +56,30 @@ function CategoryProductsPage() {
 
   return (
     <div className="bg-background min-h-screen text-foreground pb-20">
-      {/* Header Banner */}
-      <section className="relative py-16 sm:py-24 bg-gradient-to-b from-[oklch(0.22_0.04_25)] via-[oklch(0.20_0.04_25)] to-background border-b border-gold/20 overflow-hidden text-ivory">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-4 text-center">
-          <Link
-            to="/jewelleries"
-            className="inline-flex items-center gap-2 text-xs font-bold text-gold uppercase tracking-wider hover:underline mb-2"
-          >
-            <ArrowLeft className="w-4 h-4" /> Back to All Categories
-          </Link>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/40 bg-gold/10 text-gold text-xs font-bold uppercase tracking-[0.25em] mx-auto block w-fit">
-            <Sparkles className="w-3.5 h-3.5" /> {catName}
+      {/* Reddish Gradient Image Hero Header (matching About/Contact) */}
+      <section className="relative h-[36vh] sm:h-[45vh] overflow-hidden">
+        <img
+          src={categoryInfo?.image || aboutHero}
+          alt={catName}
+          width={1920}
+          height={900}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-deep-red/85 via-deep-red/60 to-black/40" />
+        <div className="relative h-full flex items-center px-4 sm:px-8">
+          <div className="max-w-7xl mx-auto w-full text-white space-y-3">
+            <Link
+              to="/jewelleries"
+              className="inline-flex items-center gap-2 text-xs font-bold text-gold uppercase tracking-wider hover:underline mb-1"
+            >
+              <ArrowLeft className="w-4 h-4" /> Back to All Categories
+            </Link>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-gold/40 bg-gold/10 text-gold text-xs font-bold uppercase tracking-[0.2em] w-fit">
+              <Sparkles className="w-3.5 h-3.5" /> {catName}
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">{catName}</h1>
+            <p className="max-w-xl text-white/85 text-sm sm:text-base leading-relaxed">{catDesc}</p>
           </div>
-          <h1 className="text-4xl sm:text-6xl font-extrabold text-gold tracking-tight">{catName}</h1>
-          <p className="max-w-2xl mx-auto text-base sm:text-lg text-ivory/80 leading-relaxed">{catDesc}</p>
         </div>
       </section>
 

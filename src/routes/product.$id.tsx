@@ -135,21 +135,21 @@ function SingleProductPage() {
 
   return (
     <div className="bg-background min-h-screen text-foreground pb-20">
-      {/* Clean Light Breadcrumb Header */}
-      <div className="py-4 px-4 sm:px-8 border-b border-border/40 text-xs font-medium text-muted-foreground">
+      {/* Reddish Gradient Breadcrumb Header */}
+      <div className="bg-gradient-to-r from-deep-red/90 via-deep-red/80 to-black/85 text-white py-3.5 px-4 sm:px-8 border-b border-gold/30 text-xs font-medium shadow-xs">
         <div className="max-w-7xl mx-auto flex items-center gap-1.5 overflow-x-auto">
-          <Link to="/" className="hover:text-gold transition-colors">Home</Link>
-          <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-60" />
-          <Link to="/jewelleries" className="hover:text-gold transition-colors">Jewelleries</Link>
-          <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-60" />
+          <Link to="/" className="text-gold hover:underline transition-colors">Home</Link>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-60 text-gold" />
+          <Link to="/jewelleries" className="text-gold hover:underline transition-colors">Jewelleries</Link>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-60 text-gold" />
           <Link
             to={`/jewelleries/${product.category_slug || product.category || "gold"}`}
-            className="hover:text-gold transition-colors capitalize"
+            className="text-gold hover:underline transition-colors capitalize"
           >
             {product.category_slug || product.category || "Gold"}
           </Link>
-          <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-60" />
-          <span className="text-foreground font-semibold truncate max-w-[200px] sm:max-w-none">{product.name}</span>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0 opacity-60 text-gold" />
+          <span className="text-white font-semibold truncate max-w-[200px] sm:max-w-none">{product.name}</span>
         </div>
       </div>
 
