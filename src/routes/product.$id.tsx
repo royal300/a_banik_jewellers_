@@ -107,8 +107,8 @@ function SingleProductPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
           {/* Left Column: Image Gallery (Span 7) */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="relative h-[420px] sm:h-[560px] rounded-3xl overflow-hidden border-2 border-gold/40 shadow-gold bg-black grid place-items-center">
+          <div className="lg:col-span-7 space-y-6 flex flex-col items-center">
+            <div className="relative w-[400px] h-[400px] max-w-full max-h-[400px] aspect-square rounded-3xl overflow-hidden border-2 border-gold/40 shadow-gold bg-black grid place-items-center">
               <img
                 src={activeImage || product.image || "/assets/product-1.jpg"}
                 alt={product.name}

@@ -21,15 +21,17 @@ function AdminRates() {
     async function load() {
       try {
         const res = await fetch("/api/rates");
-        const data = await res.json();
-        if (data) {
-          setForm({
-            rate_22k: data.gold22K || "₹ 7,285 / g",
-            rate_24k: data.gold24K || "₹ 7,945 / g",
-            rate_silver: data.silver || "₹ 96 / g",
-            last_updated: data.updated || "Today",
-            announcement: data.announcement || "",
-          });
+        if (res.ok) {
+          const data = await res.json();
+          if (data) {
+            setForm({
+              rate_22k: data.gold22K || "₹ 7,285 / g",
+              rate_24k: data.gold24K || "₹ 7,945 / g",
+              rate_silver: data.silver || "₹ 96 / g",
+              last_updated: data.updated || "Today",
+              announcement: data.announcement || "",
+            });
+          }
         }
       } catch (err) {
         console.error("Load rates error:", err);
@@ -44,13 +46,15 @@ function AdminRates() {
     e.preventDefault();
     setSaved(false);
     try {
-      await fetch("/api/rates", {
+      const res = await fetch("/api/rates", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      setSaved(true);
-      setTimeout(() => setSaved(false), 4000);
+      if (res.ok) {
+        setSaved(true);
+        setTimeout(() => setSaved(false), 4000);
+      }
     } catch (err) {
       console.error(err);
     }
