@@ -243,8 +243,6 @@ function FeaturedCarousel() {
             </div>
           ))}
         </div>
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent" />
       </div>
       <div className="max-w-7xl mx-auto text-center mt-10">
         <Link to="/jewelleries" className="inline-flex px-8 py-3 rounded-full gradient-red text-white font-bold text-sm tracking-wider shadow-gold hover:scale-105 transition-elegant">
