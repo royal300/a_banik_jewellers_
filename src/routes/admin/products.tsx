@@ -12,6 +12,8 @@ function AdminProducts() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editing, setEditing] = useState<any>(null);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
 
@@ -125,20 +127,33 @@ function AdminProducts() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSaving(true);
+    setSaveError("");
     try {
-      await fetch("/api/products", {
+      const payload = {
+        id: editing ? editing.id : undefined,
+        ...form,
+        slug: form.slug || form.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+      };
+      const res = await fetch("/api/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: editing ? editing.id : undefined,
-          ...form,
-          slug: form.slug || form.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-        }),
+        body: JSON.stringify(payload),
       });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === false) {
+        setSaveError(data.error || "Unknown error. Check server logs.");
+        console.error("Save product failed:", data);
+        return;
+      }
       setIsModalOpen(false);
+      setSaveError("");
       loadData();
     } catch (err) {
-      console.error("Save failed:", err);
+      console.error("Save product error:", err);
+      setSaveError("Network error. Please try again.");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -498,7 +513,6 @@ function AdminProducts() {
                 <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block mb-1.5">Detailed Description *</label>
                 <textarea
                   rows={3}
-                  required
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
                   placeholder="Enter detailed description of craftsmanship, design notes, and heritage..."
@@ -523,19 +537,25 @@ function AdminProducts() {
                 </label>
               </div>
 
+              {saveError && (
+                <div className="px-4 py-2.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold">
+                  ❌ {saveError}
+                </div>
+              )}
               <div className="pt-4 flex items-center justify-end gap-2.5 border-t border-gray-100">
                 <button
                   type="button"
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={() => { setIsModalOpen(false); setSaveError(""); }}
                   className="px-5 py-2.5 rounded-xl border border-gray-200 text-gray-700 text-xs font-bold hover:bg-gray-50"
                 >
                   CANCEL
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-sm transition-all"
+                  disabled={saving}
+                  className="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-60 disabled:cursor-not-allowed text-white text-xs font-bold shadow-sm transition-all"
                 >
-                  {editing ? "UPDATE PRODUCT" : "SAVE PRODUCT"}
+                  {saving ? "SAVING..." : (editing ? "UPDATE PRODUCT" : "SAVE PRODUCT")}
                 </button>
               </div>
             </form>

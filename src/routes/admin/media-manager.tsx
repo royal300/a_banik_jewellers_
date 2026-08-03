@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus, Edit2, Trash2, Image as ImageIcon, Sparkles, Check, Upload } from "lucide-react";
+import { Plus, Edit2, Trash2, Image as ImageIcon, Sparkles, Check, Upload, X } from "lucide-react";
 
 export const Route = createFileRoute("/admin/media-manager")({
   component: AdminMediaManager,
@@ -106,7 +106,7 @@ function AdminMediaManager() {
   const handleBannerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch("/api/media", {
+      const res = await fetch("/api/media", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -114,10 +114,17 @@ function AdminMediaManager() {
           ...bannerForm,
         }),
       });
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        console.error("Save banner failed:", errData);
+        alert("❌ Failed to save banner: " + (errData.error || res.statusText));
+        return;
+      }
       setIsModalOpen(false);
       loadMedia();
     } catch (err) {
-      console.error(err);
+      console.error("Banner submit error:", err);
+      alert("❌ Network error saving banner. Please try again.");
     }
   };
 
@@ -137,14 +144,19 @@ function AdminMediaManager() {
 
   const saveAboutMedia = async () => {
     try {
-      await fetch("/api/media", {
+      const res = await fetch("/api/media", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "save_about", aboutData: aboutMedia }),
       });
-      alert("✅ About Us Page Media saved successfully!");
+      if (res.ok) {
+        alert("✅ About Us Page Media saved successfully!");
+      } else {
+        alert("❌ Failed to save media. Check console for details.");
+      }
     } catch (err) {
-      console.error(err);
+      console.error("Save about media error:", err);
+      alert("❌ Network error. Please try again.");
     }
   };
 
