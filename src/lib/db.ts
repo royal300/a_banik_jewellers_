@@ -64,6 +64,9 @@ export async function ensureDbMigrated() {
       await dbQuery("ALTER TABLE products ADD COLUMN thumbnails LONGTEXT");
     } catch {}
     try {
+      await dbQuery("ALTER TABLE products MODIFY COLUMN thumbnails LONGTEXT");
+    } catch {}
+    try {
       await dbQuery("ALTER TABLE products MODIFY COLUMN image LONGTEXT");
     } catch {}
 
