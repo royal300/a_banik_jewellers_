@@ -13,6 +13,8 @@ import {
   ArrowLeft,
   Eye,
   Gem,
+  Scale,
+  CheckCircle2,
 } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import { products as fallbackProducts } from "@/lib/data";
@@ -207,12 +209,8 @@ function SingleProductPage() {
 
           {/* Right Column: Borderless Compact Product Information (Span 6) */}
           <div className="lg:col-span-6 space-y-6 pt-1">
-            {/* Header: Made in India Badge & Wishlist/Share */}
-            <div className="flex items-center justify-between">
-              <div className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground bg-secondary/50 px-3 py-1 rounded-full border border-border/40">
-                <span>Made in India</span>
-                <span className="text-base leading-none">🇮🇳</span>
-              </div>
+            {/* Header: Wishlist/Share (Made in India Removed) */}
+            <div className="flex items-center justify-end">
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setIsWishlisted((v) => !v)}
@@ -238,17 +236,26 @@ function SingleProductPage() {
               </div>
             </div>
 
-            {/* Product Title & Compact Meta */}
-            <div className="space-y-1">
-              <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground leading-snug">
+            {/* Product Title in Maroon Darkish Gradient & Highlighted Weight */}
+            <div className="space-y-3">
+              <h1 className="text-2xl sm:text-4xl font-bold tracking-tight bg-gradient-to-r from-[#4A0404] via-[#7A0C0C] to-[#4A0404] dark:from-[#F8B4B4] dark:via-[#EF9999] dark:to-[#F8B4B4] bg-clip-text text-transparent leading-snug">
                 {product.name}
               </h1>
-              <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
-                SKU: {skuCode}
+              
+              {/* Highlighted Ornament Weight */}
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#4A0404]/10 dark:bg-gold/20 border border-[#4A0404]/25 dark:border-gold/40 text-[#4A0404] dark:text-gold text-xs sm:text-sm font-extrabold shadow-xs">
+                  <Scale className="w-4 h-4 text-[#7A0C0C] dark:text-gold shrink-0" />
+                  <span>Gross Weight: {product.weight || "N/A"}</span>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-xs font-bold">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                  <span>{product.purity || "22K Hallmarked"}</span>
+                </div>
               </div>
             </div>
 
-            {/* Compact Specifications Bar (Without heavy boxes/borders) */}
+            {/* Compact Specifications Bar */}
             <div className="py-4 border-y border-border/40 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
               <div>
                 <div className="text-muted-foreground font-medium mb-0.5">Metal / Purity</div>
@@ -281,24 +288,16 @@ function SingleProductPage() {
               </p>
             </div>
 
-            {/* Showroom Availability & Actions */}
-            <div className="pt-3 space-y-3">
+            {/* Showroom Availability & WhatsApp Inquiry Button */}
+            <div className="pt-3">
               <a
-                href={`https://wa.me/${siteConfig.whatsapp}?text=Hello!%20I%20am%20interested%20in%20inquiring%20about%20the%20${encodeURIComponent(product.name)}%20(SKU:%20${skuCode},%20Weight:%20${product.weight || ""},%20Purity:%20${product.purity || ""}).`}
+                href={`https://wa.me/${siteConfig.whatsapp}?text=Hello!%20I%20am%20interested%20in%20inquiring%20about%20the%20${encodeURIComponent(product.name)}%20(Weight:%20${product.weight || ""},%20Purity:%20${product.purity || ""}).`}
                 target="_blank"
                 rel="noreferrer"
                 className="w-full py-3.5 rounded-xl gradient-gold text-deep-red font-semibold text-sm tracking-wide shadow-xs hover:opacity-95 transition-all flex items-center justify-center gap-2 block text-center"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>INQUIRE ON WHATSAPP FOR PRICING</span>
-              </a>
-
-              <a
-                href={`tel:${siteConfig.phoneClean}`}
-                className="w-full py-3.5 rounded-xl border border-gold/50 text-foreground font-semibold text-sm tracking-wide hover:bg-gold/10 transition-colors flex items-center justify-center gap-2 block text-center"
-              >
-                <Phone className="w-4 h-4 text-gold" />
-                <span>CALL SHOWROOM AT {siteConfig.phoneDisplay}</span>
               </a>
             </div>
 
