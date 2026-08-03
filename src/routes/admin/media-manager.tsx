@@ -151,45 +151,45 @@ function AdminMediaManager() {
   const currentBanners = banners.filter((b) => b.banner_type === activeTab);
 
   return (
-    <div className="space-y-8 animate-hero-fade">
+    <div className="space-y-6 animate-hero-fade">
       <div>
-        <div className="text-gold text-xs font-bold tracking-[0.3em] uppercase mb-1 flex items-center gap-2">
+        <div className="text-red-600 text-xs font-bold tracking-[0.2em] uppercase mb-1 flex items-center gap-2">
           <Sparkles className="w-4 h-4" /> Visual Assets & Showrooms
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-ivory">Media Manager</h1>
-        <p className="text-ivory/70 mt-1 text-sm sm:text-base">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">Media Manager</h1>
+        <p className="text-gray-600 mt-1 text-xs sm:text-sm">
           Manage Hero section slider images, Promo banners on the Home page, and all About Us imagery.
         </p>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-gold/30 gap-4">
+      <div className="flex border-b border-gray-200 gap-2 sm:gap-4 overflow-x-auto">
         <button
           onClick={() => setActiveTab("promo")}
-          className={`py-3 px-6 font-bold text-sm tracking-wider uppercase transition-elegant border-b-2 -mb-[2px] ${
+          className={`py-2.5 px-4 sm:px-5 font-bold text-xs tracking-wider uppercase transition-all border-b-2 -mb-[2px] whitespace-nowrap ${
             activeTab === "promo"
-              ? "border-gold text-gold bg-gold/10 rounded-t-xl"
-              : "border-transparent text-ivory/60 hover:text-ivory"
+              ? "border-red-600 text-red-600 bg-red-50/60 rounded-t-xl"
+              : "border-transparent text-gray-500 hover:text-gray-900"
           }`}
         >
           Promo Banners (Home Page)
         </button>
         <button
           onClick={() => setActiveTab("hero")}
-          className={`py-3 px-6 font-bold text-sm tracking-wider uppercase transition-elegant border-b-2 -mb-[2px] ${
+          className={`py-2.5 px-4 sm:px-5 font-bold text-xs tracking-wider uppercase transition-all border-b-2 -mb-[2px] whitespace-nowrap ${
             activeTab === "hero"
-              ? "border-gold text-gold bg-gold/10 rounded-t-xl"
-              : "border-transparent text-ivory/60 hover:text-ivory"
+              ? "border-red-600 text-red-600 bg-red-50/60 rounded-t-xl"
+              : "border-transparent text-gray-500 hover:text-gray-900"
           }`}
         >
           Hero Section Slider
         </button>
         <button
           onClick={() => setActiveTab("about")}
-          className={`py-3 px-6 font-bold text-sm tracking-wider uppercase transition-elegant border-b-2 -mb-[2px] ${
+          className={`py-2.5 px-4 sm:px-5 font-bold text-xs tracking-wider uppercase transition-all border-b-2 -mb-[2px] whitespace-nowrap ${
             activeTab === "about"
-              ? "border-gold text-gold bg-gold/10 rounded-t-xl"
-              : "border-transparent text-ivory/60 hover:text-ivory"
+              ? "border-red-600 text-red-600 bg-red-50/60 rounded-t-xl"
+              : "border-transparent text-gray-500 hover:text-gray-900"
           }`}
         >
           About Us Page Media
@@ -198,51 +198,51 @@ function AdminMediaManager() {
 
       {/* Tab Content */}
       {activeTab === "promo" && (
-        <div className="space-y-6">
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-extrabold text-ivory">Active Promo Banners ({currentBanners.length})</h2>
+            <h2 className="text-lg font-extrabold text-gray-900">Active Promo Banners ({currentBanners.length})</h2>
             <button
               onClick={() => openAddBanner("promo")}
-              className="px-6 py-3 rounded-full gradient-gold text-deep-red font-bold text-xs tracking-wider shadow-gold hover:scale-105 transition-elegant flex items-center gap-2"
+              className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs tracking-wider shadow-sm transition-all flex items-center gap-1.5"
             >
               <Plus className="w-4 h-4" /> ADD PROMO BANNER
             </button>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 gap-4">
             {currentBanners.map((b) => (
               <div
                 key={b.id}
-                className="bg-[oklch(0.22_0.04_25)] border-2 border-gold/30 rounded-3xl overflow-hidden shadow-gold flex flex-col justify-between"
+                className="bg-white border border-gray-200/80 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between"
               >
-                <div className="relative h-44 bg-black">
-                  <img src={b.image} alt={b.title} className="w-full h-full object-cover opacity-80" />
+                <div className="relative h-40 bg-gray-900">
+                  <img src={b.image} alt={b.title} className="w-full h-full object-cover opacity-85" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-4 flex flex-col justify-end">
-                    <div className="text-xs text-gold font-bold uppercase tracking-wider">{b.subtitle}</div>
-                    <div className="text-lg font-extrabold text-ivory">{b.title}</div>
+                    <div className="text-[11px] text-red-400 font-bold uppercase tracking-wider">{b.subtitle}</div>
+                    <div className="text-base font-extrabold text-white">{b.title}</div>
                   </div>
                 </div>
-                <div className="p-4 flex items-center justify-between border-t border-gold/20 bg-black/30">
-                  <span className="text-xs text-ivory/60 font-mono truncate max-w-[200px]">Link: {b.link || "N/A"}</span>
-                  <div className="flex items-center gap-2">
+                <div className="p-3.5 flex items-center justify-between border-t border-gray-100 bg-gray-50/50">
+                  <span className="text-xs text-gray-600 font-mono truncate max-w-[200px]">Link: {b.link || "N/A"}</span>
+                  <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => openEditBanner(b)}
-                      className="p-2 rounded-xl border border-gold/40 text-gold hover:bg-gold hover:text-deep-red transition-elegant"
+                      className="p-2 rounded-lg border border-gray-200 text-gray-700 hover:border-red-600 hover:text-red-600 hover:bg-red-50 transition-all"
                     >
-                      <Edit2 className="w-4 h-4" />
+                      <Edit2 className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => handleBannerDelete(b.id)}
-                      className="p-2 rounded-xl border border-red-500/40 text-red-300 hover:bg-red-900/60 transition-elegant"
+                      className="p-2 rounded-lg border border-red-200 text-red-600 hover:bg-red-600 hover:text-white transition-all"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
               </div>
             ))}
             {currentBanners.length === 0 && (
-              <div className="col-span-2 py-16 text-center bg-[oklch(0.22_0.04_25)] border border-gold/20 rounded-3xl text-ivory/60">
+              <div className="col-span-2 py-12 text-center bg-white border border-gray-200 rounded-2xl text-gray-400 text-sm font-medium">
                 No promo banners configured yet. Click "Add Promo Banner" to create one.
               </div>
             )}
@@ -251,51 +251,51 @@ function AdminMediaManager() {
       )}
 
       {activeTab === "hero" && (
-        <div className="space-y-6">
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-extrabold text-ivory">Hero Section Slides ({currentBanners.length})</h2>
+            <h2 className="text-lg font-extrabold text-gray-900">Hero Section Slides ({currentBanners.length})</h2>
             <button
               onClick={() => openAddBanner("hero")}
-              className="px-6 py-3 rounded-full gradient-gold text-deep-red font-bold text-xs tracking-wider shadow-gold hover:scale-105 transition-elegant flex items-center gap-2"
+              className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs tracking-wider shadow-sm transition-all flex items-center gap-1.5"
             >
               <Plus className="w-4 h-4" /> ADD HERO SLIDE
             </button>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 gap-4">
             {currentBanners.map((b) => (
               <div
                 key={b.id}
-                className="bg-[oklch(0.22_0.04_25)] border-2 border-gold/30 rounded-3xl overflow-hidden shadow-gold flex flex-col justify-between"
+                className="bg-white border border-gray-200/80 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between"
               >
-                <div className="relative h-56 bg-black">
-                  <img src={b.image} alt={b.title} className="w-full h-full object-cover opacity-80" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-6 flex flex-col justify-end">
-                    <div className="text-xs text-gold font-bold uppercase tracking-[0.2em]">{b.subtitle}</div>
-                    <div className="text-2xl font-extrabold text-ivory leading-tight mt-1">{b.title}</div>
+                <div className="relative h-48 bg-gray-900">
+                  <img src={b.image} alt={b.title} className="w-full h-full object-cover opacity-85" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-5 flex flex-col justify-end">
+                    <div className="text-[11px] text-red-400 font-bold uppercase tracking-[0.2em]">{b.subtitle}</div>
+                    <div className="text-xl font-extrabold text-white leading-tight mt-0.5">{b.title}</div>
                   </div>
                 </div>
-                <div className="p-4 flex items-center justify-between border-t border-gold/20 bg-black/30">
-                  <span className="text-xs text-ivory/60 font-mono truncate max-w-[200px]">CTA: {b.link || "Explore"}</span>
-                  <div className="flex items-center gap-2">
+                <div className="p-3.5 flex items-center justify-between border-t border-gray-100 bg-gray-50/50">
+                  <span className="text-xs text-gray-600 font-mono truncate max-w-[200px]">CTA: {b.link || "Explore"}</span>
+                  <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => openEditBanner(b)}
-                      className="p-2 rounded-xl border border-gold/40 text-gold hover:bg-gold hover:text-deep-red transition-elegant"
+                      className="p-2 rounded-lg border border-gray-200 text-gray-700 hover:border-red-600 hover:text-red-600 hover:bg-red-50 transition-all"
                     >
-                      <Edit2 className="w-4 h-4" />
+                      <Edit2 className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => handleBannerDelete(b.id)}
-                      className="p-2 rounded-xl border border-red-500/40 text-red-300 hover:bg-red-900/60 transition-elegant"
+                      className="p-2 rounded-lg border border-red-200 text-red-600 hover:bg-red-600 hover:text-white transition-all"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
               </div>
             ))}
             {currentBanners.length === 0 && (
-              <div className="col-span-2 py-16 text-center bg-[oklch(0.22_0.04_25)] border border-gold/20 rounded-3xl text-ivory/60">
+              <div className="col-span-2 py-12 text-center bg-white border border-gray-200 rounded-2xl text-gray-400 text-sm font-medium">
                 No hero slides configured yet. Click "Add Hero Slide" to create one.
               </div>
             )}
@@ -304,79 +304,79 @@ function AdminMediaManager() {
       )}
 
       {activeTab === "about" && (
-        <div className="bg-[oklch(0.22_0.04_25)] border-2 border-gold/30 rounded-3xl p-6 sm:p-8 space-y-8 shadow-gold">
-          <div className="flex items-center justify-between pb-4 border-b border-gold/20">
+        <div className="bg-white border border-gray-200/80 rounded-2xl p-6 space-y-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gray-100">
             <div>
-              <h2 className="text-2xl font-extrabold text-ivory">About Us Page Media Assets</h2>
-              <p className="text-xs text-ivory/60 mt-1">
+              <h2 className="text-lg font-extrabold text-gray-900">About Us Page Media Assets</h2>
+              <p className="text-xs text-gray-500 mt-0.5">
                 Customize all primary images shown on the showroom heritage and craftsmanship pages.
               </p>
             </div>
             <button
               onClick={saveAboutMedia}
-              className="px-8 py-3 rounded-full gradient-gold text-deep-red font-extrabold text-sm tracking-wider shadow-gold hover:scale-105 transition-elegant flex items-center gap-2"
+              className="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs tracking-wider shadow-sm transition-all flex items-center gap-1.5 shrink-0"
             >
               <Check className="w-4 h-4" /> SAVE ABOUT MEDIA
             </button>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-6">
-            <div className="space-y-3 bg-black/40 border border-gold/25 rounded-2xl p-4">
-              <label className="text-xs font-bold tracking-widest text-gold uppercase block">About Hero Banner Image</label>
+          <div className="grid sm:grid-cols-3 gap-5">
+            <div className="space-y-2.5 bg-gray-50/60 border border-gray-200 rounded-xl p-3.5">
+              <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block">About Hero Banner Image</label>
               <img
                 src={aboutMedia.heroImage}
                 alt="About Hero"
-                className="w-full h-40 rounded-xl object-cover border border-gold/40"
+                className="w-full h-36 rounded-lg object-cover border border-gray-200 shadow-sm"
               />
               <input
                 type="text"
                 value={aboutMedia.heroImage}
                 onChange={(e) => setAboutMedia({ ...aboutMedia, heroImage: e.target.value })}
                 placeholder="Image URL"
-                className="w-full bg-black/60 border border-gold/30 rounded-xl px-3 py-2 text-xs text-ivory focus:border-gold outline-none"
+                className="w-full bg-white border border-gray-200 rounded-xl px-3 py-1.5 text-xs text-gray-900 focus:border-red-600 outline-none"
               />
-              <label className="w-full flex items-center justify-center gap-2 py-2 rounded-xl border border-gold/50 bg-gold/10 text-gold text-xs font-bold cursor-pointer hover:bg-gold hover:text-deep-red transition-elegant">
-                <Upload className="w-4 h-4" /> UPLOAD HERO FILE
+              <label className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl border border-red-200 bg-red-50 text-red-700 text-xs font-bold cursor-pointer hover:bg-red-600 hover:text-white transition-all">
+                <Upload className="w-3.5 h-3.5" /> UPLOAD HERO FILE
                 <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, "heroImage", true)} className="hidden" />
               </label>
             </div>
 
-            <div className="space-y-3 bg-black/40 border border-gold/25 rounded-2xl p-4">
-              <label className="text-xs font-bold tracking-widest text-gold uppercase block">Heritage Story Section Image</label>
+            <div className="space-y-2.5 bg-gray-50/60 border border-gray-200 rounded-xl p-3.5">
+              <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block">Heritage Story Section Image</label>
               <img
                 src={aboutMedia.storyImage}
                 alt="Story Image"
-                className="w-full h-40 rounded-xl object-cover border border-gold/40"
+                className="w-full h-36 rounded-lg object-cover border border-gray-200 shadow-sm"
               />
               <input
                 type="text"
                 value={aboutMedia.storyImage}
                 onChange={(e) => setAboutMedia({ ...aboutMedia, storyImage: e.target.value })}
                 placeholder="Image URL"
-                className="w-full bg-black/60 border border-gold/30 rounded-xl px-3 py-2 text-xs text-ivory focus:border-gold outline-none"
+                className="w-full bg-white border border-gray-200 rounded-xl px-3 py-1.5 text-xs text-gray-900 focus:border-red-600 outline-none"
               />
-              <label className="w-full flex items-center justify-center gap-2 py-2 rounded-xl border border-gold/50 bg-gold/10 text-gold text-xs font-bold cursor-pointer hover:bg-gold hover:text-deep-red transition-elegant">
-                <Upload className="w-4 h-4" /> UPLOAD STORY FILE
+              <label className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl border border-red-200 bg-red-50 text-red-700 text-xs font-bold cursor-pointer hover:bg-red-600 hover:text-white transition-all">
+                <Upload className="w-3.5 h-3.5" /> UPLOAD STORY FILE
                 <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, "storyImage", true)} className="hidden" />
               </label>
             </div>
 
-            <div className="space-y-3 bg-black/40 border border-gold/25 rounded-2xl p-4">
-              <label className="text-xs font-bold tracking-widest text-gold uppercase block">Master Craftsmanship Image</label>
+            <div className="space-y-2.5 bg-gray-50/60 border border-gray-200 rounded-xl p-3.5">
+              <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block">Master Craftsmanship Image</label>
               <img
                 src={aboutMedia.craftImage}
                 alt="Craft Image"
-                className="w-full h-40 rounded-xl object-cover border border-gold/40"
+                className="w-full h-36 rounded-lg object-cover border border-gray-200 shadow-sm"
               />
               <input
                 type="text"
                 value={aboutMedia.craftImage}
                 onChange={(e) => setAboutMedia({ ...aboutMedia, craftImage: e.target.value })}
                 placeholder="Image URL"
-                className="w-full bg-black/60 border border-gold/30 rounded-xl px-3 py-2 text-xs text-ivory focus:border-gold outline-none"
+                className="w-full bg-white border border-gray-200 rounded-xl px-3 py-1.5 text-xs text-gray-900 focus:border-red-600 outline-none"
               />
-              <label className="w-full flex items-center justify-center gap-2 py-2 rounded-xl border border-gold/50 bg-gold/10 text-gold text-xs font-bold cursor-pointer hover:bg-gold hover:text-deep-red transition-elegant">
-                <Upload className="w-4 h-4" /> UPLOAD CRAFT FILE
+              <label className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl border border-red-200 bg-red-50 text-red-700 text-xs font-bold cursor-pointer hover:bg-red-600 hover:text-white transition-all">
+                <Upload className="w-3.5 h-3.5" /> UPLOAD CRAFT FILE
                 <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, "craftImage", true)} className="hidden" />
               </label>
             </div>
@@ -386,51 +386,51 @@ function AdminMediaManager() {
 
       {/* Banner Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="bg-[oklch(0.22_0.04_25)] border-2 border-gold/40 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-gold animate-hero-fade my-8">
-            <div className="flex items-center justify-between pb-4 border-b border-gold/20 mb-6">
-              <h3 className="text-2xl font-extrabold text-ivory">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="bg-white border border-gray-200 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl animate-hero-fade my-8">
+            <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-5">
+              <h3 className="text-xl font-extrabold text-gray-900">
                 {editingBanner ? "Edit Banner" : `Add New ${bannerForm.banner_type === "hero" ? "Hero Slide" : "Promo Banner"}`}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-2 rounded-lg text-ivory/60 hover:text-ivory"
+                className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleBannerSubmit} className="space-y-5">
+            <form onSubmit={handleBannerSubmit} className="space-y-4">
               <div>
-                <label className="text-xs font-bold tracking-widest text-gold uppercase block mb-2">Banner Title *</label>
+                <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block mb-1.5">Banner Title *</label>
                 <input
                   type="text"
                   required
                   value={bannerForm.title}
                   onChange={(e) => setBannerForm({ ...bannerForm, title: e.target.value })}
                   placeholder={bannerForm.banner_type === "hero" ? "e.g. TIMLESS HEIRLOOMS" : "e.g. BRIDAL FESTIVAL"}
-                  className="w-full bg-black/40 border border-gold/30 rounded-xl px-4 py-3 text-ivory focus:border-gold outline-none transition-elegant"
+                  className="w-full bg-gray-50/80 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:border-red-600 focus:ring-2 focus:ring-red-100 outline-none transition-all"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold tracking-widest text-gold uppercase block mb-2">Subtitle / Eyebrow</label>
+                <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block mb-1.5">Subtitle / Eyebrow</label>
                 <input
                   type="text"
                   value={bannerForm.subtitle}
                   onChange={(e) => setBannerForm({ ...bannerForm, subtitle: e.target.value })}
                   placeholder="e.g. Handcrafted 22K Hallmarked Gold"
-                  className="w-full bg-black/40 border border-gold/30 rounded-xl px-4 py-3 text-ivory focus:border-gold outline-none transition-elegant"
+                  className="w-full bg-gray-50/80 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:border-red-600 focus:ring-2 focus:ring-red-100 outline-none transition-all"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold tracking-widest text-gold uppercase block mb-2">Banner Image *</label>
+                <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block mb-1.5">Banner Image *</label>
                 <div className="flex flex-col sm:flex-row items-center gap-4">
                   <img
                     src={bannerForm.image || "/assets/promo-1.jpg"}
                     alt="Preview"
-                    className="w-20 h-20 rounded-2xl object-cover border border-gold/40 shrink-0"
+                    className="w-16 h-16 rounded-xl object-cover border border-gray-200 shrink-0 shadow-sm"
                   />
                   <div className="flex-1 w-full space-y-2">
                     <input
@@ -438,10 +438,10 @@ function AdminMediaManager() {
                       value={bannerForm.image}
                       onChange={(e) => setBannerForm({ ...bannerForm, image: e.target.value })}
                       placeholder="Image URL or pick file ->"
-                      className="w-full bg-black/40 border border-gold/30 rounded-xl px-4 py-2.5 text-xs text-ivory focus:border-gold outline-none"
+                      className="w-full bg-gray-50/80 border border-gray-200 rounded-xl px-3 py-2 text-xs text-gray-900 focus:border-red-600 outline-none"
                     />
-                    <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-gold/50 bg-gold/10 text-gold text-xs font-bold cursor-pointer hover:bg-gold hover:text-deep-red transition-elegant">
-                      <ImageIcon className="w-4 h-4" /> UPLOAD IMAGE FILE
+                    <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-red-200 bg-red-50 text-red-700 text-xs font-bold cursor-pointer hover:bg-red-600 hover:text-white transition-all">
+                      <ImageIcon className="w-3.5 h-3.5" /> UPLOAD IMAGE FILE
                       <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, "image")} className="hidden" />
                     </label>
                   </div>
@@ -449,27 +449,27 @@ function AdminMediaManager() {
               </div>
 
               <div>
-                <label className="text-xs font-bold tracking-widest text-gold uppercase block mb-2">Target Link / URL</label>
+                <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block mb-1.5">Target Link / URL</label>
                 <input
                   type="text"
                   value={bannerForm.link}
                   onChange={(e) => setBannerForm({ ...bannerForm, link: e.target.value })}
                   placeholder="e.g. /jewelleries or /contact"
-                  className="w-full bg-black/40 border border-gold/30 rounded-xl px-4 py-3 text-ivory focus:border-gold outline-none transition-elegant"
+                  className="w-full bg-gray-50/80 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:border-red-600 focus:ring-2 focus:ring-red-100 outline-none transition-all"
                 />
               </div>
 
-              <div className="pt-4 flex items-center justify-end gap-3 border-t border-gold/20">
+              <div className="pt-4 flex items-center justify-end gap-2.5 border-t border-gray-100">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-6 py-3 rounded-full border border-gold/40 text-ivory text-sm font-bold hover:bg-gold/10"
+                  className="px-5 py-2.5 rounded-xl border border-gray-200 text-gray-700 text-xs font-bold hover:bg-gray-50"
                 >
                   CANCEL
                 </button>
                 <button
                   type="submit"
-                  className="px-8 py-3 rounded-full gradient-gold text-deep-red text-sm font-extrabold shadow-gold hover:scale-105 transition-elegant"
+                  className="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-sm transition-all"
                 >
                   {editingBanner ? "UPDATE BANNER" : "SAVE BANNER"}
                 </button>

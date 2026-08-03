@@ -42,59 +42,62 @@ function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-[oklch(0.18_0.04_25)] text-ivory flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background radial glow */}
+    <div
+      className="min-h-screen bg-gradient-to-br from-[#FAF8F8] via-[#F8F9FA] to-[#F0EAEA] text-[#1A1A1A] flex items-center justify-center p-4 relative overflow-hidden font-sans selection:bg-red-600 selection:text-white"
+      style={{ zoom: "0.78" }}
+    >
+      {/* Background subtle red radial glow */}
       <div
-        className="absolute inset-0 opacity-20 pointer-events-none"
+        className="absolute inset-0 opacity-40 pointer-events-none"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 30% 30%, oklch(0.78 0.13 85) 0%, transparent 50%), radial-gradient(circle at 70% 70%, oklch(0.42 0.19 27) 0%, transparent 50%)",
+            "radial-gradient(circle at 50% 30%, rgba(220, 38, 38, 0.08) 0%, transparent 60%), radial-gradient(circle at 80% 80%, rgba(220, 38, 38, 0.05) 0%, transparent 50%)",
         }}
       />
 
-      <div className="max-w-md w-full relative z-10 bg-[oklch(0.22_0.04_25)] border-2 border-gold/40 rounded-3xl p-8 sm:p-10 shadow-gold">
+      <div className="max-w-md w-full relative z-10 bg-white border border-red-100/80 rounded-3xl p-8 sm:p-10 shadow-xl shadow-red-950/5">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 rounded-full gradient-gold grid place-items-center mx-auto mb-4 shadow-gold">
-            <Gem className="w-8 h-8 text-deep-red" />
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-600 to-red-800 grid place-items-center mx-auto mb-4 shadow-md shadow-red-600/20">
+            <Gem className="w-7 h-7 text-white" />
           </div>
-          <div className="font-extrabold tracking-wider text-2xl text-ivory">A BANIK JEWELLERS</div>
-          <div className="text-xs tracking-[0.3em] text-gold font-bold mt-1 uppercase">Admin Control Panel</div>
+          <div className="font-extrabold tracking-wider text-2xl text-gray-900">A BANIK JEWELLERS</div>
+          <div className="text-[11px] tracking-[0.25em] text-red-600 font-bold mt-1 uppercase">Admin Control Panel</div>
         </div>
 
         {error && (
-          <div className="mb-6 bg-red-900/40 border border-red-500/60 rounded-xl p-4 flex items-center gap-3 text-red-200 text-sm">
-            <AlertCircle className="w-5 h-5 shrink-0 text-red-400" />
-            <span>{error}</span>
+          <div className="mb-6 bg-red-50 border border-red-200 rounded-xl p-4 flex items-center gap-3 text-red-700 text-xs sm:text-sm">
+            <AlertCircle className="w-5 h-5 shrink-0 text-red-600" />
+            <span className="font-medium">{error}</span>
           </div>
         )}
 
-        <form onSubmit={handleLogin} className="space-y-5">
+        <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="text-xs font-bold tracking-widest text-gold uppercase block mb-2">Username</label>
+            <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block mb-1.5">Username</label>
             <div className="relative">
-              <User className="w-5 h-5 text-gold/60 absolute left-4 top-1/2 -translate-y-1/2" />
+              <User className="w-4 h-4 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Enter admin ID"
-                className="w-full bg-black/40 border border-gold/30 rounded-xl pl-12 pr-4 py-3.5 text-ivory placeholder-ivory/30 focus:border-gold outline-none transition-elegant"
+                className="w-full bg-gray-50/80 border border-gray-200 rounded-xl pl-11 pr-4 py-3 text-gray-900 placeholder-gray-400 focus:border-red-600 focus:ring-2 focus:ring-red-100 outline-none transition-all text-sm"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-bold tracking-widest text-gold uppercase block mb-2">Password</label>
+            <label className="text-[11px] font-bold tracking-wider text-gray-700 uppercase block mb-1.5">Password</label>
             <div className="relative">
-              <Lock className="w-5 h-5 text-gold/60 absolute left-4 top-1/2 -translate-y-1/2" />
+              <Lock className="w-4 h-4 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"
-                className="w-full bg-black/40 border border-gold/30 rounded-xl pl-12 pr-4 py-3.5 text-ivory placeholder-ivory/30 focus:border-gold outline-none transition-elegant"
+                className="w-full bg-gray-50/80 border border-gray-200 rounded-xl pl-11 pr-4 py-3 text-gray-900 placeholder-gray-400 focus:border-red-600 focus:ring-2 focus:ring-red-100 outline-none transition-all text-sm"
               />
             </div>
           </div>
@@ -102,14 +105,14 @@ function AdminLogin() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 rounded-xl gradient-gold text-deep-red font-extrabold text-sm tracking-wider shadow-gold hover:scale-[1.02] active:scale-[0.98] transition-elegant flex items-center justify-center gap-2 mt-2 disabled:opacity-60"
+            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-extrabold text-sm tracking-wider shadow-md shadow-red-600/20 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 mt-2 disabled:opacity-60"
           >
             <span>{loading ? "VERIFYING..." : "ENTER DASHBOARD"}</span>
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="w-4 h-4" />
           </button>
         </form>
 
-        <div className="mt-8 pt-6 border-t border-gold/20 text-center text-xs text-ivory/50">
+        <div className="mt-8 pt-6 border-t border-gray-100 text-center text-xs text-gray-400">
           Secure Admin Portal &copy; 2026 A BANIK JEWELLERS
         </div>
       </div>
