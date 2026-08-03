@@ -5,46 +5,72 @@ export const Route = createFileRoute("/api/categories")({
   server: {
     handlers: {
       GET: async ({ request }) => {
-        await ensureDbMigrated();
-        const url = new URL(request.url);
-        const homeOnly = url.searchParams.get("home") === "1";
-        const sql = homeOnly
-          ? "SELECT * FROM categories WHERE show_in_home = 1 ORDER BY id DESC"
-          : "SELECT * FROM categories ORDER BY id DESC";
-        const rows = await dbQuery(sql);
-        return new Response(JSON.stringify(rows), {
-          headers: { "Content-Type": "application/json" },
-        });
+        try {
+          await ensureDbMigrated();
+          const url = new URL(request.url);
+          const homeOnly = url.searchParams.get("home") === "1";
+          const sql = homeOnly
+            ? "SELECT * FROM categories WHERE show_in_home = 1 ORDER BY id DESC"
+            : "SELECT * FROM categories ORDER BY id DESC";
+          const rows = await dbQuery(sql);
+          return new Response(JSON.stringify(rows), {
+            headers: { "Content-Type": "application/json" },
+          });
+        } catch (err) {
+          console.error("GET /api/categories error:", err);
+          return new Response(JSON.stringify([]), {
+            headers: { "Content-Type": "application/json" },
+          });
+        }
       },
       POST: async ({ request }) => {
-        await ensureDbMigrated();
-        const body = await request.json();
-        const { id, name, slug, description, image, show_in_home } = body;
-        if (id) {
-          await dbQuery(
-            `UPDATE categories SET name = ?, slug = ?, description = ?, image = ?, show_in_home = ? WHERE id = ?`,
-            [name, slug, description || "", image || "", show_in_home ? 1 : 0, id]
-          );
-        } else {
-          await dbQuery(
-            `INSERT INTO categories (name, slug, description, image, show_in_home) VALUES (?, ?, ?, ?, ?)`,
-            [name, slug, description || "", image || "", show_in_home ? 1 : 0]
-          );
+        try {
+          await ensureDbMigrated();
+          const body = await request.json();
+          const { id, name, slug, description, image, show_in_home } = body;
+          const showHomeVal = show_in_home === true || show_in_home === 1 ? 1 : 0;
+          const catSlug = slug || (name ? name.toLowerCase().replace(/[^a-z0-9]+/g, "-") : `cat-${Date.now()}`);
+
+          if (id) {
+            await dbQuery(
+              `UPDATE categories SET name = ?, slug = ?, description = ?, image = ?, show_in_home = ? WHERE id = ?`,
+              [name, catSlug, description || "", image || "", showHomeVal, id]
+            );
+          } else {
+            await dbQuery(
+              `INSERT INTO categories (name, slug, description, image, show_in_home) VALUES (?, ?, ?, ?, ?)`,
+              [name, catSlug, description || "", image || "", showHomeVal]
+            );
+          }
+          return new Response(JSON.stringify({ success: true }), {
+            headers: { "Content-Type": "application/json" },
+          });
+        } catch (err) {
+          console.error("POST /api/categories error:", err);
+          return new Response(JSON.stringify({ success: false, error: String(err) }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+          });
         }
-        return new Response(JSON.stringify({ success: true }), {
-          headers: { "Content-Type": "application/json" },
-        });
       },
       DELETE: async ({ request }) => {
-        await ensureDbMigrated();
-        const url = new URL(request.url);
-        const id = url.searchParams.get("id");
-        if (id) {
-          await dbQuery(`DELETE FROM categories WHERE id = ?`, [id]);
+        try {
+          await ensureDbMigrated();
+          const url = new URL(request.url);
+          const id = url.searchParams.get("id");
+          if (id) {
+            await dbQuery(`DELETE FROM categories WHERE id = ?`, [id]);
+          }
+          return new Response(JSON.stringify({ success: true }), {
+            headers: { "Content-Type": "application/json" },
+          });
+        } catch (err) {
+          console.error("DELETE /api/categories error:", err);
+          return new Response(JSON.stringify({ success: false, error: String(err) }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+          });
         }
-        return new Response(JSON.stringify({ success: true }), {
-          headers: { "Content-Type": "application/json" },
-        });
       },
     },
   },

@@ -101,43 +101,6 @@ function JewelleriesPage() {
           </div>
         )}
       </section>
-
-      {/* Trust & Craftsmanship Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-gradient-to-r from-[oklch(0.22_0.04_25)] via-[oklch(0.26_0.05_25)] to-[oklch(0.22_0.04_25)] border-2 border-gold/40 rounded-3xl p-8 sm:p-12 shadow-gold text-ivory grid md:grid-cols-4 gap-8">
-          <div className="flex flex-col items-center text-center space-y-2">
-            <div className="w-14 h-14 rounded-2xl gradient-gold grid place-items-center shadow-gold mb-2">
-              <ShieldCheck className="w-7 h-7 text-deep-red" />
-            </div>
-            <div className="font-extrabold text-lg text-gold">100% BIS Hallmarked</div>
-            <div className="text-xs text-ivory/75">Guaranteed purity across all 22K & 24K gold ornaments.</div>
-          </div>
-
-          <div className="flex flex-col items-center text-center space-y-2">
-            <div className="w-14 h-14 rounded-2xl gradient-gold grid place-items-center shadow-gold mb-2">
-              <Award className="w-7 h-7 text-deep-red" />
-            </div>
-            <div className="font-extrabold text-lg text-gold">IGI Certified Diamonds</div>
-            <div className="text-xs text-ivory/75">Internationally tested natural diamonds with grading reports.</div>
-          </div>
-
-          <div className="flex flex-col items-center text-center space-y-2">
-            <div className="w-14 h-14 rounded-2xl gradient-gold grid place-items-center shadow-gold mb-2">
-              <Gem className="w-7 h-7 text-deep-red" />
-            </div>
-            <div className="font-extrabold text-lg text-gold">Custom Bridal Design</div>
-            <div className="text-xs text-ivory/75">Master karigars ready to bring your dream bridal set to life.</div>
-          </div>
-
-          <div className="flex flex-col items-center text-center space-y-2">
-            <div className="w-14 h-14 rounded-2xl gradient-gold grid place-items-center shadow-gold mb-2">
-              <HeartHandshake className="w-7 h-7 text-deep-red" />
-            </div>
-            <div className="font-extrabold text-lg text-gold">Trusted Since Decades</div>
-            <div className="text-xs text-ivory/75">A legacy of honest pricing in Madhyamgram, Kolkata.</div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

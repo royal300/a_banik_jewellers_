@@ -35,9 +35,10 @@ export async function ensureDbMigrated() {
     `);
     try {
       await dbQuery("ALTER TABLE categories ADD COLUMN show_in_home TINYINT(1) DEFAULT 1");
-    } catch {
-      // Column exists or table already modified
-    }
+    } catch {}
+    try {
+      await dbQuery("ALTER TABLE categories MODIFY COLUMN image LONGTEXT");
+    } catch {}
 
     // Ensure products table exists and has necessary columns
     await dbQuery(`
@@ -49,7 +50,7 @@ export async function ensureDbMigrated() {
         weight VARCHAR(255) NOT NULL,
         purity VARCHAR(255) NOT NULL,
         description TEXT,
-        image VARCHAR(500) NOT NULL,
+        image LONGTEXT NOT NULL,
         thumbnails LONGTEXT,
         is_featured TINYINT(1) DEFAULT 0,
         is_available TINYINT(1) DEFAULT 1,
@@ -62,6 +63,9 @@ export async function ensureDbMigrated() {
     try {
       await dbQuery("ALTER TABLE products ADD COLUMN thumbnails LONGTEXT");
     } catch {}
+    try {
+      await dbQuery("ALTER TABLE products MODIFY COLUMN image LONGTEXT");
+    } catch {}
 
     // Ensure banners table
     await dbQuery(`
@@ -69,12 +73,15 @@ export async function ensureDbMigrated() {
         id INT AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         subtitle TEXT,
-        image VARCHAR(500) NOT NULL,
+        image LONGTEXT NOT NULL,
         link VARCHAR(500),
         banner_type VARCHAR(100) DEFAULT 'promo',
         is_active TINYINT(1) DEFAULT 1
       )
     `);
+    try {
+      await dbQuery("ALTER TABLE banners MODIFY COLUMN image LONGTEXT");
+    } catch {}
 
     // Ensure rate_configs table
     await dbQuery(`

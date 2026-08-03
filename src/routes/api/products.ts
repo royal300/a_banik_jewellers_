@@ -69,72 +69,88 @@ export const Route = createFileRoute("/api/products")({
         });
       },
       POST: async ({ request }) => {
-        await ensureDbMigrated();
-        const body = await request.json();
-        const {
-          id,
-          name,
-          slug,
-          category_slug,
-          weight,
-          purity,
-          description,
-          image,
-          thumbnails = [],
-          is_featured,
-        } = body;
+        try {
+          await ensureDbMigrated();
+          const body = await request.json();
+          const {
+            id,
+            name,
+            slug,
+            category_slug,
+            weight,
+            purity,
+            description,
+            image,
+            thumbnails = [],
+            is_featured,
+          } = body;
 
-        const thumbsJson = JSON.stringify(
-          Array.isArray(thumbnails) && thumbnails.length > 0 ? thumbnails : [image || ""]
-        );
-        const prodSlug = slug || (name ? name.toLowerCase().replace(/[^a-z0-9]+/g, "-") : `prod-${Date.now()}`);
+          const thumbsJson = JSON.stringify(
+            Array.isArray(thumbnails) && thumbnails.length > 0 ? thumbnails : [image || ""]
+          );
+          const prodSlug = slug || (name ? name.toLowerCase().replace(/[^a-z0-9]+/g, "-") : `prod-${Date.now()}`);
 
-        if (id) {
-          await dbQuery(
-            `UPDATE products SET name = ?, slug = ?, category_slug = ?, weight = ?, purity = ?, description = ?, image = ?, thumbnails = ?, is_featured = ? WHERE id = ?`,
-            [
-              name,
-              prodSlug,
-              category_slug || "gold",
-              weight || "",
-              purity || "22K Hallmarked Gold",
-              description || "",
-              image || "",
-              thumbsJson,
-              is_featured ? 1 : 0,
-              id,
-            ]
-          );
-        } else {
-          await dbQuery(
-            `INSERT INTO products (name, slug, category_slug, weight, purity, description, image, thumbnails, is_featured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            [
-              name,
-              prodSlug,
-              category_slug || "gold",
-              weight || "",
-              purity || "22K Hallmarked Gold",
-              description || "",
-              image || "",
-              thumbsJson,
-              is_featured ? 1 : 0,
-            ]
-          );
+          if (id) {
+            await dbQuery(
+              `UPDATE products SET name = ?, slug = ?, category_slug = ?, weight = ?, purity = ?, description = ?, image = ?, thumbnails = ?, is_featured = ? WHERE id = ?`,
+              [
+                name,
+                prodSlug,
+                category_slug || "gold",
+                weight || "",
+                purity || "22K Hallmarked Gold",
+                description || "",
+                image || "",
+                thumbsJson,
+                is_featured ? 1 : 0,
+                id,
+              ]
+            );
+          } else {
+            await dbQuery(
+              `INSERT INTO products (name, slug, category_slug, weight, purity, description, image, thumbnails, is_featured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+              [
+                name,
+                prodSlug,
+                category_slug || "gold",
+                weight || "",
+                purity || "22K Hallmarked Gold",
+                description || "",
+                image || "",
+                thumbsJson,
+                is_featured ? 1 : 0,
+              ]
+            );
+          }
+          return new Response(JSON.stringify({ success: true }), {
+            headers: { "Content-Type": "application/json" },
+          });
+        } catch (err) {
+          console.error("POST /api/products error:", err);
+          return new Response(JSON.stringify({ success: false, error: String(err) }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+          });
         }
-        return new Response(JSON.stringify({ success: true }), {
-          headers: { "Content-Type": "application/json" },
-        });
       },
       DELETE: async ({ request }) => {
-        await ensureDbMigrated();
-        const url = new URL(request.url);
-        const id = url.searchParams.get("id");
-        if (id) {
-          await dbQuery(`DELETE FROM products WHERE id = ?`, [id]);
+        try {
+          await ensureDbMigrated();
+          const url = new URL(request.url);
+          const id = url.searchParams.get("id");
+          if (id) {
+            await dbQuery(`DELETE FROM products WHERE id = ?`, [id]);
+          }
+          return new Response(JSON.stringify({ success: true }), {
+            headers: { "Content-Type": "application/json" },
+          });
+        } catch (err) {
+          console.error("DELETE /api/products error:", err);
+          return new Response(JSON.stringify({ success: false, error: String(err) }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+          });
         }
-        return new Response(JSON.stringify({ success: true }), {
-          headers: { "Content-Type": "application/json" },
-        });
       },
     },
   },
